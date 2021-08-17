@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Principal">
+   <children>
+      <BorderPane prefHeight="500.0" prefWidth="800.0" />
+      <AnchorPane layoutX="225.0" layoutY="9.0" prefHeight="482.0" prefWidth="558.0" style="-fx-background-color: red;" />
+      <AnchorPane layoutX="223.0" layoutY="9.0" prefHeight="458.0" prefWidth="564.0" style="-fx-background-color: yellow;" />
+      <AnchorPane layoutY="-1.0" prefHeight="488.0" prefWidth="211.0">
+         <children>
+            <Button layoutX="14.0" layoutY="60.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="120.0" text="Inicio" />
+            <Button layoutX="14.0" layoutY="98.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="120.0" text="Usuario" />
+            <Button layoutX="14.0" layoutY="136.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="120.0" text="Producto" />
+            <Button layoutX="14.0" layoutY="172.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="120.0" text="Proveedor" />
+            <Button layoutX="14.0" layoutY="215.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="120.0" text="Ajustes" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
