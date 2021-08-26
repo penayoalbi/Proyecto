@@ -1,4 +1,4 @@
-package sample;
+package ferreteria;
 
 public class usuario {
     private  String nombre;

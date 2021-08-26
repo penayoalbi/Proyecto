@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="Home" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PrincipalController">
+<AnchorPane fx:id="Home" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.PrincipalController">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: D5F5E3;" />
       <AnchorPane fx:id="page2" layoutX="165.0" layoutY="9.0" prefHeight="482.0" prefWidth="618.0" style="-fx-background-color: #F9EBEA;" />

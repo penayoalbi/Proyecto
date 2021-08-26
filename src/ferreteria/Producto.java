@@ -1,4 +1,4 @@
-package sample;
+package ferreteria;
 
 public class Producto {
     private int productoID;

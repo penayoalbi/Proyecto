@@ -3,5 +3,5 @@ module Proyecto {
     requires javafx.controls;
     requires javafx.graphics;
     requires java.sql;
-    opens sample;
+    opens ferreteria;
 }

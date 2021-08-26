@@ -1,4 +1,4 @@
-package sample;
+package ferreteria;
 import java.sql.*;
 import java.sql.SQLException;
 public class bd {
