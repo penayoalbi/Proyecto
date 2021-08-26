@@ -14,12 +14,13 @@
       <Pane fx:id="home" prefHeight="200.0" prefWidth="200.0" />
       <Pane fx:id="login" prefHeight="311.0" prefWidth="450.0">
          <children>
-            <Button fx:id="btnIngresar" layoutX="150.0" layoutY="185.0" mnemonicParsing="false" onAction="#ingresar" text="Ingresar" />
+            <Button fx:id="btnIngresar" layoutX="150.0" layoutY="171.0" mnemonicParsing="false" onAction="#ingresar" text="Ingresar" />
             <Label layoutX="94.0" layoutY="89.0" text="Usuario" />
             <Label layoutX="73.0" layoutY="126.0" text="Contraseña" />
             <PasswordField fx:id="txtClave" layoutX="150.0" layoutY="121.0" />
             <TextField fx:id="txtUsuario" layoutX="150.0" layoutY="84.0" />
-            <Button fx:id="btnSalir" layoutX="255.0" layoutY="185.0" mnemonicParsing="false" onAction="#salir" text="Salir" />
+            <Button fx:id="btnSalir" layoutX="255.0" layoutY="171.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Hyperlink layoutX="192.0" layoutY="215.0" text="Recuperar contaseña" />
          </children>
       </Pane>
    </children>

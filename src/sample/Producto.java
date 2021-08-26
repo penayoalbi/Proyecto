@@ -1,9 +1,10 @@
 package sample;
 
-public class articulo {
+public class Producto {
+    private int productoID;
     private String nombre;
     private String descripcion;
-    private int stock;
     private float precioLista;
     private float precioVenta;
+    private int stock;
 }
