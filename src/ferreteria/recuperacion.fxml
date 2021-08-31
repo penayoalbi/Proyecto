@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.Recuperacion">
+   <children>
+      <Pane layoutX="115.0" layoutY="56.0" prefHeight="312.0" prefWidth="359.0">
+         <children>
+            <Button fx:id="guardarCambio" layoutX="113.0" layoutY="221.0" mnemonicParsing="false" onAction="#guardarCambio" text="Guardar" />
+            <Button fx:id="cancelarCambio" layoutX="203.0" layoutY="221.0" mnemonicParsing="false" onAction="#cancelarCambio" text="Cancelar" />
+            <Label layoutX="5.0" layoutY="45.0" text="Código de Usuario" />
+            <Label layoutX="5.0" layoutY="90.0" text="Nueva Contraseña" />
+            <Label layoutX="4.0" layoutY="132.0" text="Repetir Contraseña" />
+            <TextField fx:id="idUsuario" layoutX="122.0" layoutY="40.0" />
+            <TextField fx:id="nuevaContraseña" layoutX="122.0" layoutY="85.0" />
+            <TextField fx:id="repetirContraseña" layoutX="122.0" layoutY="127.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
