@@ -4,30 +4,20 @@ import java.sql.SQLException;
 public class bd {
 
     static String conbd="jdbc:mysql://127.00.1:3306/ferreteria?user=root&password&serverTimezone=UTC";
+    private ResultSet rs;
 
     //realizar consulta/SELECT
     public ResultSet Consultar(String stringsql) {
-        ResultSet rs=null;
-        try {
-         //   String select="select * from ferreteria.usuarios where nombre=?";
-           // PreparedStatement ps;
+        
+        try{
             Connection conn = DriverManager.getConnection(conbd);
-            if(conbd!=null){
-                Statement statement=conn.createStatement();
-                ResultSet resultSet=statement.executeQuery(stringsql);
-                return  resultSet;
-            }
-            //Statement statement = conn.createStatement();
-            //ps=conn.prepareStatement(select);
-           // ps.setString(1, stringsql);
-         //   rs=ps.executeQuery();
-           // ps.close();
-           // conn.close();
-            if(rs.next()){
-                return rs;
-            }
+            Statement statement = conn.createStatement();
+            rs = statement.executeQuery(stringsql);
+            //statement.close();
+            //conn.close();
         } catch (SQLException e) {
             System.out.println("ERROR: " + e.getMessage());
+          //  rs=null;
         }
         return rs;
     }
@@ -45,7 +35,7 @@ public class bd {
         }
     }
 
-    //update
+    //UPDATE `usuarios` SET `clave` = 'lalo123a4' WHERE `usuarios`.`id` = 2
     public void modificardatos(String stringsql)
     {//modificar registos
         try {
