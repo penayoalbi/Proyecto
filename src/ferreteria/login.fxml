@@ -20,7 +20,8 @@
             <PasswordField fx:id="txtClave" layoutX="150.0" layoutY="121.0" />
             <TextField fx:id="txtUsuario" layoutX="150.0" layoutY="84.0" />
             <Button fx:id="btnSalir" layoutX="255.0" layoutY="171.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
-            <Hyperlink layoutX="192.0" layoutY="215.0" text="Recuperar contaseña" />
+            <Hyperlink fx:id="recuperacion" layoutX="192.0" layoutY="215.0" onAction="#recuperacion" text="Recuperar contaseña" />
+           <!-- <Hyperlink fx:id="vistaPrincipal" layoutX="312.0" layoutY="33.0" onAction="#vistaPrincipal" text="Ir a inicio" />-->
          </children>
       </Pane>
    </children>
