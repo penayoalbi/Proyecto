@@ -4,4 +4,5 @@ module Proyecto {
     requires javafx.graphics;
     requires java.sql;
     opens ferreteria;
+    opens controllerPersona;
 }
