@@ -1,82 +1,115 @@
 package ferreteria;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-
+import javafx.stage.Stage;
+import java.io.IOException;
+import java.net.PasswordAuthentication;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller {
     private static final int WITDH =0 ;
-    @FXML private Pane home;
-    @FXML private Pane login;
     @FXML private TextField txtUsuario;
     @FXML private TextField txtClave;
     @FXML private Button btnIngresar;
     @FXML private Button btnSalir;
     @FXML private AnchorPane Home, page2, page3, page4;
-
-
+    @FXML private Hyperlink recuperacion;
 
 @FXML
-    void ingresar() throws Exception{
+    void ingresar( ActionEvent event) throws Exception {
     System.out.println("Click en el boton ingresar");
     bd base = new bd();//instancia de bd
 
-    if(txtUsuario.getText().equals("") || txtClave.getText().equals("")){
+    if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
         alert("llene los campos de usuario y clave");
-    }else{
-        ResultSet rs;//
-        rs = base.Consultar( "SELECT * FROM ferreteria.usuarios");
-        int  resu = 0;
+    } else {
+        ResultSet rs;
+        rs = base.Consultar("SELECT * FROM ferreteria.usuarios");
+        int resu = 0;
         while (rs.next()){
-            if(txtUsuario.getText().equals(rs.getString("nombre")) && txtClave.getText().equals(rs.getString("clave"))){
-               System.out.println("bienvenidoooo");
+            if (txtUsuario.getText().equals(rs.getString("nombre")) && txtClave.getText().equals(rs.getString("clave"))) {
+                // System.out.println("bienvenidoooo");
+                alert("Bienvenido");
                 resu = 1;
-                //alert("Bienvenido");
-                break;
-            }else {
-                resu =0;
-                System.out.println("usuario no existe");
-                //alert("Error:   usuario no existe");
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+                    Parent root = loader.load();
+                    PrincipalController vistaPrincipal = loader.getController();//instancia  class
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                   // Stage myStage = (Stage) this.vistaPrincipal.getScene().getWindow();
+                    //myStage.close();
+                } catch (IOException e) {
+                    Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null, e);
+                }
             }
-            //System.out.println(nombre + "\t"+clave+"\t"); //mostrar en forma de tabla
         }
         rs.close();
 
-        if(resu==1){
-            alert("Bienvenido!");
-        }else{
+        if(resu!=1){
             alert("Error:   usuario no existe");
-        }
+            txtUsuario.setText(null);
+            txtClave.setText(null);
         }
     }
+    }
 
+/*
+    @FXML//link a ventana principal
+    public void vistaPrincipal(ActionEvent event){
+        //alert("principal");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+                Parent root = loader.load();
+                PrincipalController vistaPrincipal = loader.getController();//instancia  class
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                Stage myStage = (Stage) this.vistaPrincipal.getScene().getWindow();
+                myStage.close();
+
+            }catch (IOException e){
+                Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null,e);
+            }
+        }
+*/
+    @FXML
+    void recuperacion(ActionEvent event){
+        //alert("recuperacion");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("recuperacion.fxml"));
+            Parent root = loader.load();
+            Recuperacion recuperacionPass = loader.getController();//instan recu class
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            stage.setOnCloseRequest(e-> recuperacionPass.controladorClose());// cuando se cierra ejecuta esto
+            Stage myStage = (Stage) this.recuperacion.getScene().getWindow();
+            myStage.close();
+
+        }catch (IOException e){
+            Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null,e);
+        }
+    }
     @FXML void cancelar(){
         System.out.println("click en  Cancelar");
         System.exit(WITDH);
     }
-    //page 2
-   /* @FXML
-    private void paginaPrincipal(){
-        Stage principal = new Stage();
-        AnchorPane paginaHome = new AnchorPane();
-        Scene homee = new Scene(paginaHome);
-        principal.setScene(homee);
-        principal.setTitle("nueva ventana");
-        principal.show();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("principal.fxml"));
-            principal.setScene(homee);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }*/
-
-    //mensaje de alerta
     public void alert(String msj){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
