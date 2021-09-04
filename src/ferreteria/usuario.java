@@ -13,17 +13,10 @@ public class usuario {
     private String estado;
     private String domicilio;
 
-    public usuario(Integer usuarioID,
-                   String tipoDocumento,
-                   String documento,
-                   String nombre,
-                   String apellido,
-                   String correo,
-                   String clave,
-                   String cargo,
-                   String telefono,
-                   String estado,
-                   String domicilio) {
+    public usuario(Integer usuarioID, String tipoDocumento, String documento, String nombre,
+                   String apellido, String correo, String clave, String cargo, String telefono,
+                   String estado, String domicilio)
+    {
         this.usuarioID=usuarioID;
         this.tipoDocumento=tipoDocumento;
         this.documento=documento;
