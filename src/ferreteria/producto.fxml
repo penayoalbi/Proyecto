@@ -3,7 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.productoController">
    <children>
       <Label layoutX="26.0" layoutY="55.0" text="ProductoID" />
@@ -14,14 +13,14 @@
       <Label layoutX="59.0" layoutY="250.0" text="Stock" />
       <TableView fx:id="tablaProducto" layoutX="112.0" layoutY="303.0" prefHeight="223.0" prefWidth="774.0">
         <columns>
-          <TableColumn fx:id="colPrpductoID" prefWidth="86.0" text="ProductoID" />
+          <TableColumn fx:id="colProductoID" prefWidth="86.0" text="ProductoID" />
           <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
             <TableColumn fx:id="colDescripcion" prefWidth="89.0" text="Descripción" />
             <TableColumn fx:id="colPrecioLista" prefWidth="88.0" text="Precio lista" />
             <TableColumn fx:id="colPrecioVenta" prefWidth="88.0" text="Precio venta" />
             <TableColumn fx:id="colStock" prefWidth="57.0" text="Stock" />
-            <TableColumn fx:id="colCategoria" prefWidth="90.0" text="Categoría" />
-            <TableColumn fx:id="colProveedor" prefWidth="98.0" text="Proveedor" />
+            <TableColumn fx:id="colCategoria" prefWidth="114.0" text="Categoría" />
+            <TableColumn fx:id="colProveedor" prefWidth="97.0" text="Proveedor" />
         </columns>
       </TableView>
       <TextField fx:id="txtProductoID" layoutX="115.0" layoutY="49.0" />
@@ -34,13 +33,13 @@
       <Label layoutX="337.0" layoutY="129.0" prefHeight="19.0" prefWidth="66.0" text="Proveedor" />
       <ComboBox fx:id="cmbCategoria" layoutX="419.0" layoutY="86.0" prefHeight="29.0" prefWidth="150.0" />
       <ComboBox fx:id="cmbProveedor" layoutX="419.0" layoutY="124.0" prefWidth="150.0" />
-      <Button fx:id="btnListar" layoutX="581.0" layoutY="51.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Listar" />
-      <Button fx:id="btnModificar" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Modificar" />
-      <Button fx:id="btnEliminar" layoutX="581.0" layoutY="124.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Eliminar" />
-      <Button fx:id="btnNuevo" layoutX="581.0" layoutY="161.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Nuevo" />
-      <Button fx:id="btnGuardar" layoutX="581.0" layoutY="196.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Guardar" />
+      <Button fx:id="btnListar" layoutX="581.0" layoutY="51.0" mnemonicParsing="false" onAction="#listar" prefHeight="29.0" prefWidth="141.0" text="Listar" />
+      <Button fx:id="btnModificar" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" onAction="#modificar" prefHeight="29.0" prefWidth="141.0" text="Modificar" />
+      <Button fx:id="btnEliminar" layoutX="581.0" layoutY="124.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="29.0" prefWidth="141.0" text="Eliminar" />
+      <Button fx:id="btnNuevo" layoutX="581.0" layoutY="161.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="29.0" prefWidth="141.0" text="Nuevo" />
+      <Button fx:id="btnGuardar" layoutX="581.0" layoutY="196.0" mnemonicParsing="false" onAction="#guardar" prefHeight="29.0" prefWidth="141.0" text="Guardar" />
       <Button layoutX="582.0" layoutY="232.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Button" />
       <Label layoutX="299.0" layoutY="91.0" prefHeight="19.0" prefWidth="105.0" text="Seleccionar Categ." />
-      <TextField layoutX="419.0" layoutY="51.0" prefHeight="29.0" prefWidth="150.0" text="txtCategoriaNueva" />
+      <TextField layoutX="419.0" layoutY="51.0" prefHeight="29.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
