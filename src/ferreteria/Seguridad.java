@@ -1,50 +1,29 @@
 package ferreteria;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 
 public class Seguridad {
-    String msjError;
-
-    private static String ENCRYPTKEY = "a_encriptar"; //Crear clave interna para encriptar y desencriptar
-    //metodo encriptar
-    public static String encriptar(String a_encriptar) {
-        try {
-            SecretKeySpec miClave = new SecretKeySpec(ENCRYPTKEY.getBytes(), 0, 16, "AES");//genera clave incriptado
-            //ins AES
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCSS5Padding");
-            //pasar la llave de encript
-            cipher.init(ENCRYPT_MODE, miClave);
-            byte[] encriptadoAES = cipher.doFinal(a_encriptar.getBytes());
-            String encriptado = Base64.getMimeEncoder().encodeToString(encriptadoAES);
-            return encriptado;
-        } catch (Exception e) {
-            System.out.println("ocurrio un error: " + e.getMessage());
+    public static String hash(String clave) throws NoSuchAlgorithmException {
+        java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-1");
+        byte[] array = md.digest(clave.getBytes());
+        StringBuilder cadena_a_hash = new StringBuilder();
+        for (int i = 0; i < array.length; ++i) {
+            cadena_a_hash.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
         }
-        return a_encriptar;
+        return cadena_a_hash.toString();
     }
 
-    //metodo desencriptar
+    //método desencriptar
     public static String desencriptar(String a_desencriptar){
         try{
             return a_desencriptar;
         }catch (Exception e){
             System.out.println("Error al desencriptar: "+e.getMessage());
+            String msjError ="ocurrio un error al encriptar: " + e.getMessage();
+            return msjError;
         }
-        return a_desencriptar;
     }
-
-
-
-
 }
