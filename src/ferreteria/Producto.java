@@ -9,16 +9,16 @@ public class Producto {
     private float precioVenta;
     private Integer stock;
     private String categoria;
-    private Integer proveedor;
 
     //construct
-    public Producto(Integer productoID, String nombre, String descripcion, float precioLista, float precioVenta, Integer stock, String categoria, Integer proveedor) {
+    public Producto(Integer productoID,  String descripcion, float precioLista, float precioVenta, Integer stock, String categoria, String nombre) {
         this.productoID = productoID;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precioLista = precioLista;
         this.precioVenta = precioVenta;
         this.stock = stock;
+        this.categoria=categoria;
     }
 
     public Integer getProductoID() {
@@ -64,19 +64,17 @@ public class Producto {
     public Integer getStock() {
         return stock;
     }
+
     public void setStock(Integer stock) {
         this.stock = stock;
     }
+
     public void setCategoria(String categoria){
         this.categoria=categoria;
     }
+
     public String getCategoria(){
         return categoria;
     }
-    public void setProveedor(Integer proveedor){
-        this.proveedor=proveedor;
-    }
-    public Integer getProveedor(){
-        return proveedor;
-    }
+
 }
