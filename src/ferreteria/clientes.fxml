@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.clientesController">
+   <children>
+      <Label layoutX="348.0" prefHeight="35.0" prefWidth="176.0" text="Administración de clientes" textFill="#5e36ff">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Label layoutX="32.0" layoutY="56.0" text="Id Cliente" />
+      <Label layoutY="96.0" text="Tipo Documento" />
+      <Label layoutX="26.0" layoutY="137.0" text="Documento" />
+      <Label layoutX="36.0" layoutY="176.0" text="Nombre" />
+      <Label layoutX="37.0" layoutY="211.0" text="Apellido" />
+      <Label layoutX="328.0" layoutY="56.0" text="Correo" />
+      <Label layoutX="317.0" layoutY="96.0" text="Teléfono" />
+      <Label layoutX="315.0" layoutY="137.0" text="Domicilio" />
+      <Label layoutX="10.0" layoutY="272.0" text="Documento" />
+      <ComboBox layoutX="106.0" layoutY="91.0" prefHeight="29.0" prefWidth="162.0" />
+      <TextField layoutX="106.0" layoutY="132.0" />
+      <TextField layoutX="106.0" layoutY="171.0" />
+      <TextField layoutX="106.0" layoutY="206.0" />
+      <TextField layoutX="392.0" layoutY="51.0" />
+      <TextField layoutX="392.0" layoutY="91.0" />
+      <TextField layoutX="106.0" layoutY="51.0" />
+      <TextField layoutX="106.0" layoutY="267.0" prefHeight="29.0" prefWidth="394.0" />
+      <Button layoutX="554.0" layoutY="267.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="105.0" text="Buscar" textFill="#5a36ff" />
+      <TextField layoutX="392.0" layoutY="132.0" />
+      <TableView layoutX="106.0" layoutY="334.0" prefHeight="239.0" prefWidth="669.0">
+        <columns>
+          <TableColumn prefWidth="67.0" text="Id Cliente" />
+          <TableColumn prefWidth="102.0" text="Tipo Dcumento" />
+            <TableColumn prefWidth="78.0" text="Documento" />
+            <TableColumn prefWidth="72.0" text="Nombre" />
+            <TableColumn prefWidth="78.0" text="Apellido" />
+            <TableColumn prefWidth="82.0" text="Correo" />
+            <TableColumn prefWidth="76.0" text="Teléfono" />
+            <TableColumn prefWidth="98.0" text="Domicilio" />
+        </columns>
+      </TableView>
+      <Button layoutX="315.0" layoutY="186.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="105.0" text="Listar" textFill="#ff3353" />
+      <Button layoutX="436.0" layoutY="186.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="97.0" text="Modificar" textFill="#ff6936" />
+      <Button layoutX="554.0" layoutY="186.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="105.0" text="Nuevo" textFill="#36ff5b" />
+      <Button layoutX="677.0" layoutY="186.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="105.0" text="Guardar" textFill="#5e36ff" />
+      <Button layoutX="677.0" layoutY="267.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="105.0" text="Borrar" textFill="#ff3636" />
+   </children>
+</AnchorPane>
