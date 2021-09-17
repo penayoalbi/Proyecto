@@ -16,9 +16,11 @@ public class PrincipalController {
     private static final int WITDH  = 0;
     @FXML private Button btnUsuario;
     @FXML private Button btnSalir;
+    @FXML private Button btnCliente;
 
     @FXML
     private void vistaUsuario(ActionEvent event){
+        System.out.println("click en usuario");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("usuario.fxml"));
             Parent root = loader.load();
@@ -61,8 +63,25 @@ public class PrincipalController {
         System.out.println("click en vista proveedor");
     }
 
-
     private void controladorClose() {
+    }
+    @FXML
+   public void vistaCliente(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("clientes.fxml"));
+            Parent root = loader.load();
+            clientesController cliente = loader.getController();
+            Scene scene = new Scene (root);
+            Stage stage= new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            stage.setOnCloseRequest(e-> cliente.controladorClose());
+            Stage myStage = (Stage) this.btnCliente.getScene().getWindow();
+
+        }catch (Exception e){
+            System.out.println("ERROR: "+e.getMessage());
+        }
     }
 
     @FXML
