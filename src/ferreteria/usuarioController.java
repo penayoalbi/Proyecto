@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.ComboBox;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +46,11 @@ public class usuarioController {
     @FXML private TextField txtEstado;
     @FXML private TextField txtCargo;
     @FXML private ComboBox cmbDocumento;
+    @FXML private TextField txtPrueba;
 
+    Seguridad seguridad = new Seguridad();//instanciar seguridad
     Controller alert = new Controller();
-    bd newbd= new bd();
+    bd newbd= new bd();//llamo a la clase de conexión a base de datos
 
     ObservableList<usuario> oblist = FXCollections.observableArrayList();//lista observable
 
@@ -163,15 +166,13 @@ public class usuarioController {
 
     @FXML
     public void guardar(){
-        //INSERT INTO `usuarios` (`usuarioID`, `tipoDocumento`, `documento`, `nombre`, `apellido`, `correo`, `clave`,
-        // `cargo`, `telefono`, `estado`, `domicilio`) VALUES (NULL, 'CI', '32456987', 'Valeria', 'Gomez', 'vale.gomez@gmail.com',
-        // 'vale123', 'vendedor', '1156897423', 'habilitado', 'bustamante 347')
         System.out.println(" click en guardar");
         //btnListar.setDisable(true);
         try{
             if (cmbDocumento.getItems().equals("") || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
-                    || txtApellido.getText().equals("") || txtCorreo.getText().equals("") || txtClave.getText().equals("") || txtCargo.getText().equals("")
-                    || txtTelefono.getText().equals("") || txtEstado.getText().equals("") || txtDomicilio.getText().equals("")) {
+                    || txtApellido.getText().equals("") || txtCorreo.getText().equals("") || txtClave.getText().equals("")
+                    || txtCargo.getText().equals("") || txtTelefono.getText().equals("") || txtEstado.getText().equals("")
+                    || txtDomicilio.getText().equals("")) {
                     alert.alert("Error: Campo vacio");
             }else{
                 String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido, correo, clave, cargo," +
@@ -184,10 +185,8 @@ public class usuarioController {
                 alert.alert("se guardó");
                 tablaUsuario.refresh();
             }
-
         }catch (Exception e){
             System.out.println("Error al guardar: "+e.getMessage());
-            alert.alert("Error al guardar");
         }
    }
    @FXML
@@ -195,12 +194,14 @@ public class usuarioController {
        System.out.println("click en editar");
        btnListar.setDisable(false);
        txtUsuarioID.setDisable(false);
-
        //campo vacio
        try {
-           if (txtUsuarioID.getText().equals("") || cmbDocumento.getItems().equals("") || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
-                   || txtApellido.getText().equals("") || txtCorreo.getText().equals("") || txtClave.getText().equals("") || txtCargo.getText().equals("")
-                   || txtTelefono.getText().equals("") || txtEstado.getText().equals("") || txtDomicilio.getText().equals("")) {
+           if (txtUsuarioID.getText().equals("") || cmbDocumento.getItems().equals("")
+                   || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
+                   || txtApellido.getText().equals("") || txtCorreo.getText().equals("")
+                   || txtClave.getText().equals("") || txtCargo.getText().equals("")
+                   || txtTelefono.getText().equals("") || txtEstado.getText().equals("")
+                   || txtDomicilio.getText().equals("")) {
                alert.alert("Error. Campo vacio");
            } else {
                String modificar = "UPDATE usuarios SET usuarioID ='"
@@ -234,6 +235,29 @@ public class usuarioController {
         txtDomicilio.setText(null);
         txtEstado.setText(null);
         cmbDocumento.setValue(null);
+    }
+
+    @FXML
+    public String Encriptar() throws NoSuchAlgorithmException {
+        String secretKey = "prueba";
+        String encriptar = "";
+        if (!txtPrueba.getText().equals("")) {
+            String clave = txtPrueba.getText();
+            encriptar = seguridad.Encriptar(secretKey,clave);
+            System.out.println("esto es prueba: " + encriptar);
+        } else {
+            System.out.println("error en prueba");
+        }
+        return encriptar;
+    }
+
+    public void desencriptar() throws NoSuchAlgorithmException
+    {
+        String secrectKey = "prueba";
+        String cadena_encriptada ="uNKA850kweI=";
+        String Texto_desencriptado = Seguridad.Desencriptar(secrectKey,cadena_encriptada);
+        // lblTextoDesencriptado.setText(Texto_desencriptado);
+        System.out.println("texto desencriptado: " + Texto_desencriptado);
     }
 
 }
