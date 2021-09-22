@@ -9,21 +9,21 @@ public class clientes {
     private String correo;
     private Integer telefono;
     private String direccion;
-    private String privincia;
+    private String provincia;
     private String localidad;
 
     public clientes(Integer clienteID, String tipoDocumento, Integer documento, String nombre, String apellido,
-                    String correo, Integer telefono, String direccion, String privincia, String localidad)
+                     Integer telefono,String correo, String direccion, String provincia, String localidad)
     {
         this.clienteID = clienteID;
         this.tipoDocumento = tipoDocumento;
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.correo = correo;
         this.telefono = telefono;
+        this.correo = correo;
         this.direccion = direccion;
-        this.privincia = privincia;
+        this.provincia = provincia;
         this.localidad = localidad;
     }
 
@@ -91,12 +91,12 @@ public class clientes {
         this.direccion = direccion;
     }
 
-    public String getPrivincia() {
-        return privincia;
+    public String getProvincia() {
+        return provincia;
     }
 
-    public void setPrivincia(String privincia) {
-        this.privincia = privincia;
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 
     public String getLocalidad() {
