@@ -10,8 +10,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.sql.ResultSet;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,16 +23,26 @@ public class Recuperacion {
     private static final int WITDH = 0;
     @FXML private AnchorPane vistaRecuperacion;
     @FXML private Pane formRecuperacion;
-    @FXML private TextField idUsuario, nuevaContraseña, repetirContraseña;
+    @FXML private Pane vistaEnviarCorreo;
+    @FXML private TextField usuarioID, nuevaContraseña, repetirContraseña;
     @FXML private Button guardarCambio;
     @FXML private Button cancelarCambio;
+    @FXML private TextField txtCorreoRecupero;
+
+    validacion valida = new validacion();
+
+    @FXML
+    public void initialize1(){
+      //  formRecuperacion.setVisible(false);
+    }
 
     @FXML
     public void guardarCambio(){
         bd base = new bd();
         ResultSet rs;//txt_nombre.getText().equals("")|
         if(!nuevaContraseña.getText().equals("")){
-            String sql=( "UPDATE `usuarios` SET `clave` = '"+nuevaContraseña.getText()+"' WHERE `usuarios`.`usuarioID` = "+idUsuario.getText());
+            String sql=( "UPDATE `usuarios` SET `clave` = '"+nuevaContraseña.getText()
+                    +"' WHERE `usuarios`.`usuarioID` = "+usuarioID.getText());
             base.Guardar(sql);
             limpiarCeldas();
         }else{
@@ -60,10 +74,42 @@ public class Recuperacion {
         //System.exit(WITDH);
     }
 
+    @FXML public void enviarCorreo(){
+       // formRecuperacion.setVisible(true);
+        Email email = new Email();
+        try{
+           // if(!txtCorreoRecupero.getText().equals("") && valida.validarEmail(txtCorreoRecupero.getText())) {
+                email.enviarMail(txtCorreoRecupero.getText(),retornaAleatrio());
+                System.out.println("se envio correctamente. revise su correo" +retornaAleatrio());
+           // }
+        }catch (InvalidParameterException | MessagingException  e){
+            System.out.println("error al enviar correo de recupero: "+e.getMessage());
+        }
+    }
+
+    @FXML
+    public static String retornaAleatrio(){
+        //banco de caracteres
+        String bancoCaracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        String cadenaAleatorio = "";
+        for(int i=0; i<10; i++){
+            int itemAleatorio = numAleatorio(0, bancoCaracteres.length()-1);
+            char caracterAleatorio = bancoCaracteres.charAt(itemAleatorio);
+            cadenaAleatorio+=caracterAleatorio;
+        }
+        System.out.println("mi aleatorio: "+cadenaAleatorio);
+        return  cadenaAleatorio;
+    }
+
+    @FXML
+    public static Integer numAleatorio(int min, int max){
+        return ThreadLocalRandom.current().nextInt(min,max+1 );
+    }
+
     @FXML
     public void limpiarCeldas(){
         //txt_idprofe.setText(null);
-        idUsuario.setText(null);
+        usuarioID.setText(null);
         nuevaContraseña.setText(null);
         repetirContraseña.setText(null);
     }
