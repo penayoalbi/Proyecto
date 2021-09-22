@@ -25,7 +25,7 @@ public class Email {
 
         Session session = Session.getDefaultInstance(propiedad);
         String correo = "ferreteriagamarra812@gmail.com";
-        String pass = "ferreteria812";
+        String pass = "";
         String asunto = "Recupero de contraseña";//mando el mensaje que  se genero
 
         MimeMessage mail = new MimeMessage(session);
