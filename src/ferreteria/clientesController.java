@@ -139,30 +139,7 @@ public class clientesController {
         }catch (Exception e){
             System.out.println("Error al modificar: "+e.getMessage());
         }
-        /*
-           if (txtUsuarioID.getText().equals("") || cmbDocumento.getItems().equals("")
-                   || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
-                   || txtApellido.getText().equals("") || txtCorreo.getText().equals("")
-                   || txtClave.getText().equals("") || txtCargo.getText().equals("")
-                   || txtTelefono.getText().equals("") || txtEstado.getText().equals("")
-                   || txtDomicilio.getText().equals("")) {
-               alert.alert("Error. Campo vacio");
-           } else {
-               String modificar = "UPDATE usuarios SET usuarioID ='"
-                       + txtUsuarioID.getText() + "',tipoDocumento='" + cmbDocumento.getValue().toString() + "',documento='"
-                       + txtDocumento.getText() + "',nombre='" + txtNombre.getText() + "',apellido='"
-                       + txtApellido.getText() + "',correo='" + txtCorreo.getText() + "',clave='" +txtClave.getText()+ "',cargo='"
-                       + txtCargo.getText() + "',telefono='" + txtTelefono.getText() + "',estado='"
-                       + txtEstado.getText() + "',domicilio='" + txtDomicilio.getText() + "'" +
-                       "WHERE usuarioID= '" + txtUsuarioID.getText() + "'";
-               newbd.modificardatos(modificar);
-               alert.alert("Se modificó correctamente.");
-               tablaUsuario.refresh();
-           }
-       }catch (Exception e){
-           System.out.println("error en modificar"+e.getMessage());
-       }
-         */
+
         System.out.println("click en modificar");
     }
     @FXML public void Nuevo(){
