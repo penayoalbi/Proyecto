@@ -42,10 +42,12 @@ public class clientesController {
 
     Controller alert = new Controller();
     bd base= new bd();//llamo a la clase de conexión a base de datos
+    validacion validar = new validacion();
+
 
     @FXML
     public void initialize() {
-      //  eventoClick();
+        eventoClick();
         List<String> TipoDocumento = new ArrayList<>();
         TipoDocumento.add("Documento Nacional de Identidad");
         TipoDocumento.add("Cédula de Identidad");
@@ -99,38 +101,69 @@ public class clientesController {
         }
     }
     @FXML
-    public void eventoClick(){
-        tablaCliente.getSelectionModel().selectedItemProperty().addListener((observableValue, valorAnterior, valorActual)->{
-
-        });
-        /*
-        //valorActual apunta a valor seleccionado en la grilla
-        tablaUsuario.getSelectionModel().selectedItemProperty().addListener((observableValue, valorAnterior, valorActual) -> {
-            txtUsuarioID.setText(String.valueOf(valorActual.getUsuarioID()));
-            cmbDocumento.setValue(valorActual.getTipoDocumento());
+    public void eventoClick() {
+        tablaCliente.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, valorAnterior, valorActual) -> {
+            txtClienteID.setText(String.valueOf(valorActual.getClienteID()));
+            cmbTipoDocumento.setValue((valorActual.getTipoDocumento()));
             txtDocumento.setText(String.valueOf(valorActual.getDocumento()));
             txtNombre.setText(String.valueOf(valorActual.getNombre()));
-            txtApellido.setText(String.valueOf(valorActual.getApellido()));
+            txtNombre.setText(String.valueOf(valorActual.getApellido()));
             txtTelefono.setText(String.valueOf(valorActual.getTelefono()));
             txtCorreo.setText(String.valueOf(valorActual.getCorreo()));
-            txtDomicilio.setText(String.valueOf(valorActual.getDomicilio()));
-            txtClave.setText(String.valueOf(valorActual.getClave()));
-            txtEstado.setText(String.valueOf(valorActual.getEstado()));
-            txtCargo.setText(String.valueOf(valorActual.getCargo()));
-
+            txtDireccion.setText(String.valueOf(valorActual.getDireccion()));
+            txtProvincia.setText(String.valueOf(valorActual.getProvincia()));
+            txtLocalidad.setText(String.valueOf(valorActual.getLocalidad()));
             btnListar.setDisable(true);
-            txtUsuarioID.setDisable(true);
-            btnEditar.setDisable(false);
-            tablaUsuario.refresh();
+            txtClienteID.setDisable(true);
         });
-    }
-         */
-
     }
 
     @FXML public void Modificar(){
-        System.out.println("click en modificar");
+        txtClienteID.setDisable(true);
+        tablaCliente.refresh();
+        try{
+            if(!cmbTipoDocumento.getItems().equals("") | !txtDocumento.getText().equals("") | !txtNombre.getText().equals("")
+               | !txtApellido.getText().equals("") | !txtTelefono.getText().equals("") | !txtCorreo.getText().equals("")
+               | !txtDireccion.getText().equals("") | !txtProvincia.getText().equals("") | !txtLocalidad.getText().equals("")){
+                if(validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText())
+                        && validar.validarEmail(txtCorreo.getText())){
+                    alert.alert("datos ok");
+                }else{
+                    alert.alert("datos no ok");
+                }
 
+            }else{
+                alert.alert("Error: Complete todos los campos");
+            }
+        }catch (Exception e){
+            System.out.println("Error al modificar: "+e.getMessage());
+        }
+        /*
+           if (txtUsuarioID.getText().equals("") || cmbDocumento.getItems().equals("")
+                   || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
+                   || txtApellido.getText().equals("") || txtCorreo.getText().equals("")
+                   || txtClave.getText().equals("") || txtCargo.getText().equals("")
+                   || txtTelefono.getText().equals("") || txtEstado.getText().equals("")
+                   || txtDomicilio.getText().equals("")) {
+               alert.alert("Error. Campo vacio");
+           } else {
+               String modificar = "UPDATE usuarios SET usuarioID ='"
+                       + txtUsuarioID.getText() + "',tipoDocumento='" + cmbDocumento.getValue().toString() + "',documento='"
+                       + txtDocumento.getText() + "',nombre='" + txtNombre.getText() + "',apellido='"
+                       + txtApellido.getText() + "',correo='" + txtCorreo.getText() + "',clave='" +txtClave.getText()+ "',cargo='"
+                       + txtCargo.getText() + "',telefono='" + txtTelefono.getText() + "',estado='"
+                       + txtEstado.getText() + "',domicilio='" + txtDomicilio.getText() + "'" +
+                       "WHERE usuarioID= '" + txtUsuarioID.getText() + "'";
+               newbd.modificardatos(modificar);
+               alert.alert("Se modificó correctamente.");
+               tablaUsuario.refresh();
+           }
+       }catch (Exception e){
+           System.out.println("error en modificar"+e.getMessage());
+       }
+         */
+        System.out.println("click en modificar");
     }
     @FXML public void Nuevo(){
         System.out.println("click en nuevo");
