@@ -63,8 +63,6 @@ public class PrincipalController {
         System.out.println("click en vista proveedor");
     }
 
-    private void controladorClose() {
-    }
     @FXML
    public void vistaCliente(){
         try{
@@ -75,10 +73,10 @@ public class PrincipalController {
             Stage stage= new Stage();
             stage.setScene(scene);
             stage.show();
-
             stage.setOnCloseRequest(e-> cliente.controladorClose());
-            Stage myStage = (Stage) this.btnCliente.getScene().getWindow();
 
+            Stage myStage = (Stage) this.btnCliente.getScene().getWindow();
+            myStage.close();
         }catch (Exception e){
             System.out.println("ERROR: "+e.getMessage());
         }
