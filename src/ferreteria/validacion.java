@@ -9,7 +9,6 @@ public class validacion {
 
     @FXML
     public boolean validarNulo(String string){
-
         return true;
     }
     @FXML
@@ -26,6 +25,5 @@ public class validacion {
         Matcher matcher = pattern.matcher(datos);
         return matcher.find();
     }
-
 }
 
