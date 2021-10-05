@@ -94,10 +94,12 @@ public class usuarioController {
             ResultSet rs;
             rs = base.Consultar("SELECT * FROM usuarios");
             while (rs.next()) {
-                oblist.add(new usuario(rs.getInt("usuarioID"), rs.getString("tipoDocumento"), rs.getString("documento"),
-                        rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"),
+                oblist.add(new usuario(rs.getInt("usuarioID"), rs.getString("tipoDocumento"),
+                        rs.getString("documento"), rs.getString("nombre"),
+                        rs.getString("apellido"), rs.getString("correo"),
                         rs.getString("clave"), rs.getString("cargo"),
-                        rs.getString("telefono"), rs.getString("estado"), rs.getString("domicilio")));
+                        rs.getString("telefono"), rs.getString("estado"),
+                        rs.getString("domicilio")));
             }
             colUsuarioID.setCellValueFactory(new PropertyValueFactory<>("usuarioID"));
             colTipoDocumento.setCellValueFactory(new PropertyValueFactory<>("tipoDocumento"));
@@ -175,15 +177,19 @@ public class usuarioController {
                     || txtDomicilio.getText().equals("")) {
                     alert.alert("Error: Campo vacio");
             }else{
-                String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido, correo, clave, cargo," +
-                        " telefono, estado, domicilio) VALUES ('" +cmbDocumento.getValue().toString()+
-                        "','"+txtDocumento.getText()+"','"+txtNombre.getText()+ "','"+txtApellido.getText()+
-                        "','" +txtCorreo.getText()+ "','" +txtClave.getText()+ "','" +txtCargo.getText()+
-                        "','" +txtTelefono.getText()+"','"+txtEstado.getText()+
-                        "','" +txtDomicilio.getText()+"')";
-                newbd.Guardar(insert);
-                alert.alert("se guardó");
-                tablaUsuario.refresh();
+              //  if(){
+
+
+                    String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido, correo, clave, cargo," +
+                            " telefono, estado, domicilio) VALUES ('" +cmbDocumento.getValue().toString()+
+                            "','"+txtDocumento.getText()+"','"+txtNombre.getText()+ "','"+txtApellido.getText()+
+                            "','" +txtCorreo.getText()+ "','" +txtClave.getText()+ "','" +txtCargo.getText()+
+                            "','" +txtTelefono.getText()+"','"+txtEstado.getText()+
+                            "','" +txtDomicilio.getText()+"')";
+                    newbd.Guardar(insert);
+                    alert.alert("se guardó");
+                    tablaUsuario.refresh();
+               // }
             }
         }catch (Exception e){
             System.out.println("Error al guardar: "+e.getMessage());
@@ -238,20 +244,15 @@ public class usuarioController {
     }
 
     @FXML
-    public String Encriptar() throws NoSuchAlgorithmException {
+    public String Encriptar(String clave) throws NoSuchAlgorithmException {
         String secretKey = "prueba";
         String encriptar = "";
-        if (!txtPrueba.getText().equals("")) {
-            String clave = txtPrueba.getText();
             encriptar = seguridad.Encriptar(secretKey,clave);
             System.out.println("esto es prueba: " + encriptar);
-        } else {
-            System.out.println("error en prueba");
-        }
-        return encriptar;
+            return encriptar;
     }
 
-    public void desencriptar() throws NoSuchAlgorithmException
+    public void desencriptar(String clave) throws NoSuchAlgorithmException
     {
         String secrectKey = "prueba";
         String cadena_encriptada ="uNKA850kweI=";
