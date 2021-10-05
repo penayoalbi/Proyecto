@@ -11,15 +11,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.sql.ResultSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-public class Recuperacion {
+public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
     private static final int WITDH = 0;
     @FXML private AnchorPane vistaRecuperacion;
     @FXML private Pane formRecuperacion;
@@ -27,10 +25,11 @@ public class Recuperacion {
     @FXML private TextField usuarioID, nuevaContraseña, repetirContraseña;
     @FXML private Button guardarCambio;
     @FXML private Button cancelarCambio;
-    @FXML private TextField txtCorreoRecupero;
+    @FXML private Button btnEnviarCorreo;
+    public TextField txtCorreoRecupero;
 
     validacion valida = new validacion();
-
+    Email email = new  Email();
     @FXML
     public void initialize1(){
       //  formRecuperacion.setVisible(false);
@@ -39,7 +38,7 @@ public class Recuperacion {
     @FXML
     public void guardarCambio(){
         bd base = new bd();
-        ResultSet rs;//txt_nombre.getText().equals("")|
+        ResultSet rs;
         if(!nuevaContraseña.getText().equals("")){
             String sql=( "UPDATE `usuarios` SET `clave` = '"+nuevaContraseña.getText()
                     +"' WHERE `usuarios`.`usuarioID` = "+usuarioID.getText());
@@ -64,7 +63,7 @@ public class Recuperacion {
             Stage myStage = (Stage) this.guardarCambio.getScene().getWindow();//para cerrar ventana, pero siempre hay una en pantalla
             myStage.close();
         }catch (IOException e){
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null,e);
+            Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null,e);
         }
     }
 
@@ -74,13 +73,12 @@ public class Recuperacion {
         //System.exit(WITDH);
     }
 
-    @FXML public void enviarCorreo(){
+    @FXML public void enviarCorreo() {
        // formRecuperacion.setVisible(true);
-        Email email = new Email();
         try{
            // if(!txtCorreoRecupero.getText().equals("") && valida.validarEmail(txtCorreoRecupero.getText())) {
-                email.enviarMail(txtCorreoRecupero.getText(),retornaAleatrio());
-                System.out.println("se envio correctamente. revise su correo" +retornaAleatrio());
+                email.enviarCorreo(txtCorreoRecupero.getText(),retornaAleatrio());
+                System.out.println("se envio correctamente. Revise su correo" +retornaAleatrio());
            // }
         }catch (InvalidParameterException | MessagingException  e){
             System.out.println("error al enviar correo de recupero: "+e.getMessage());

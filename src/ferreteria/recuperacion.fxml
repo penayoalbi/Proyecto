@@ -5,16 +5,19 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.Recuperacion">
    <children>
-      <Pane layoutX="115.0" layoutY="56.0" prefHeight="312.0" prefWidth="359.0">
+      <Pane fx:id="vistaNuevoUsuario" layoutX="85.0" layoutY="22.0" prefHeight="364.0" prefWidth="448.0">
          <children>
-            <Button fx:id="guardarCambio" layoutX="113.0" layoutY="221.0" mnemonicParsing="false" onAction="#guardarCambio" text="Guardar" />
-            <Button fx:id="cancelarCambio" layoutX="203.0" layoutY="221.0" mnemonicParsing="false" onAction="#cancelarCambio" text="Cancelar" />
-            <Label layoutX="5.0" layoutY="45.0" text="Código de Usuario" />
-            <Label layoutX="5.0" layoutY="90.0" text="Nueva Contraseña" />
-            <Label layoutX="4.0" layoutY="132.0" text="Repetir Contraseña" />
-            <TextField fx:id="idUsuario" layoutX="122.0" layoutY="40.0" />
-            <TextField fx:id="nuevaContraseña" layoutX="122.0" layoutY="85.0" />
-            <TextField fx:id="repetirContraseña" layoutX="122.0" layoutY="127.0" />
+            <Button fx:id="guardarCambio" layoutX="132.0" layoutY="225.0" mnemonicParsing="false" onAction="#guardarCambio" prefHeight="29.0" prefWidth="90.0" text="Guardar" />
+            <Button fx:id="cancelarCambio" layoutX="234.0" layoutY="225.0" mnemonicParsing="false" onAction="#cancelarCambio" prefHeight="29.0" prefWidth="90.0" text="Cancelar" />
+            <Label layoutX="15.0" layoutY="99.0" text="Código de Usuario" />
+            <Label layoutX="15.0" layoutY="144.0" text="Nueva Contraseña" />
+            <Label layoutX="14.0" layoutY="186.0" text="Repetir Contraseña" />
+            <TextField fx:id="usuarioID" layoutX="132.0" layoutY="94.0" prefHeight="29.0" prefWidth="228.0" />
+            <TextField fx:id="nuevaContraseña" layoutX="132.0" layoutY="139.0" prefHeight="29.0" prefWidth="228.0" />
+            <TextField fx:id="repetirContraseña" layoutX="132.0" layoutY="181.0" prefHeight="29.0" prefWidth="228.0" />
+            <Button fx:id="btnEnviarCorreo" layoutX="344.0" layoutY="14.0" mnemonicParsing="false" onAction="#enviarCorreo" prefHeight="29.0" prefWidth="90.0" text="Enviar" />
+            <TextField fx:id="txtCorreoRecupero" layoutX="69.0" layoutY="14.0" prefHeight="29.0" prefWidth="254.0" />
+            <Label layoutX="15.0" layoutY="14.0" prefHeight="29.0" prefWidth="54.0" text="Correo" />
          </children>
       </Pane>
    </children>
