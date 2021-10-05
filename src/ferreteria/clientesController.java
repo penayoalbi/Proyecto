@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,7 +109,7 @@ public class clientesController {
             cmbTipoDocumento.setValue((valorActual.getTipoDocumento()));
             txtDocumento.setText(String.valueOf(valorActual.getDocumento()));
             txtNombre.setText(String.valueOf(valorActual.getNombre()));
-            txtNombre.setText(String.valueOf(valorActual.getApellido()));
+            txtApellido.setText(String.valueOf(valorActual.getApellido()));
             txtTelefono.setText(String.valueOf(valorActual.getTelefono()));
             txtCorreo.setText(String.valueOf(valorActual.getCorreo()));
             txtDireccion.setText(String.valueOf(valorActual.getDireccion()));
@@ -128,26 +129,63 @@ public class clientesController {
                | !txtDireccion.getText().equals("") | !txtProvincia.getText().equals("") | !txtLocalidad.getText().equals("")){
                 if(validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText())
                         && validar.validarEmail(txtCorreo.getText())){
-                    alert.alert("datos ok");
+                    //alert.alert("datos ok");
+                    String modificar = "UPDATE clientes SET clienteID ='"+txtClienteID.getText()+"',TipoDocumento ='"
+                            +cmbTipoDocumento.getValue()+"',Documento ='"+txtDocumento.getText()+"',Nombre ='"
+                            +txtNombre.getText()+"',Apellido ='"+txtApellido.getText()+"', Telefono ='"
+                            +txtTelefono.getText()+"',Correo ='"+txtCorreo.getText()+"', direccion ='"
+                            +txtDireccion.getText() +"',provincia ='"+txtProvincia.getText()+"',localidad ='"
+                            +txtLocalidad.getText()+"'"+ "WHERE clienteID ='" +txtClienteID.getText()+"'";
+                    base.modificardatos(modificar);
+                    tablaCliente.refresh();
                 }else{
                     alert.alert("datos no ok");
                 }
-
             }else{
                 alert.alert("Error: Complete todos los campos");
             }
         }catch (Exception e){
             System.out.println("Error al modificar: "+e.getMessage());
         }
-
-        System.out.println("click en modificar");
     }
     @FXML public void Nuevo(){
-        System.out.println("click en nuevo");
+       // System.out.println("click en nuevo");
+        limpiar();
     }
     @FXML public void Guardar(){
-        System.out.println("click en guardar");
+        txtClienteID.setDisable(true);
+        try{
+            if(!cmbTipoDocumento.getItems().equals("") | !txtDocumento.getText().equals("") | !txtNombre.getText().equals("")
+                    | !txtApellido.getText().equals("") | !txtTelefono.getText().equals("") | !txtCorreo.getText().equals("")
+                    | !txtDireccion.getText().equals("") | !txtProvincia.getText().equals("") | !txtLocalidad.getText().equals("")) {
+                if (validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText())
+                        && validar.validarEmail(txtCorreo.getText())){
+                    if(txtDocumento.getText().length()==8){
+                        if(txtNombre.getText().length()>=3 && txtNombre.getText().length()<=30 && txtApellido.getText().length()>=3
+                        && txtApellido.getText().length()<=30){
+                            String insert = "INSERT INTO";
+                            System.out.println("todo Ok");
+                        }else{
+                            System.out.println("no ok");
+                        }
+                    }else{
+                        System.out.println("error en dni");
+                    }
+                }else{
+                    System.out.println("caracter invalido");
+                }
+            }else{
+                System.out.println("Hay campos vacios");
+            }
+            }catch (Exception e){
+            System.out.println("ERROR: no se pudo guargar nuevo usuario");
+        }
+       // if(confirmar()){
+        //aqui va el insert
+       // }
+        tablaCliente.refresh();
     }
+
     @FXML public void Borrar(){
         System.out.println("click en borrar");
     }
@@ -155,5 +193,32 @@ public class clientesController {
         System.out.println("click en borrar");
     }
 
+    @FXML public void limpiar(){
+        txtClienteID.setText(null);
+        txtDocumento.setText(null);
+        txtNombre.setText(null);
+        txtApellido.setText(null);
+        txtCorreo.setText(null);
+        txtTelefono.setText(null);
+        txtDireccion.setText(null);
+        txtLocalidad.setText(null);
+        txtProvincia.setText(null);
+    }
 
+    @FXML
+    public  Boolean confirmar (){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Confirmación");
+        alert.setContentText("¿Desea guardar nuevo usuario?");
+        Optional<ButtonType> action = alert.showAndWait();
+        // Si hemos pulsado en aceptar
+        if (action.get() == ButtonType.OK) {
+            System.out.println("Has pulsado en aceptar");
+            return true;
+        } else {
+            System.out.println("Has pulsado en cancelar");
+            return false;
+        }
+    }
 }
