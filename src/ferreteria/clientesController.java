@@ -193,6 +193,18 @@ public class clientesController {
 
     @FXML public void Borrar(){
         System.out.println("click en borrar");
+        try{
+            int item = tablaCliente.getSelectionModel().getSelectedItem().getClienteID();
+            String eliminar = "DELETE FROM clientes WHERE clienteID ='"+item+"'";
+            if(confirmar()){
+                if(base.buscarIdex(eliminar)){
+                    System.out.println("Se elimino con exito: "+ item);
+                    tablaCliente.refresh();
+                }
+            }
+        }catch (Exception e){
+            System.out.println("ERROR al eliminar "+e.getMessage());
+        }
     }
     @FXML public void Buscar(){
         System.out.println("click en borrar");
@@ -215,14 +227,11 @@ public class clientesController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setTitle("Confirmación");
-        alert.setContentText("¿Desea guardar nuevo usuario?");
+        alert.setContentText("¿Confirmar acción?");
         Optional<ButtonType> action = alert.showAndWait();
-        // Si hemos pulsado en aceptar
         if (action.get() == ButtonType.OK) {
-            System.out.println("Has pulsado en aceptar");
             return true;
         } else {
-            System.out.println("Has pulsado en cancelar");
             return false;
         }
     }
