@@ -45,7 +45,6 @@ public class clientesController {
     bd base= new bd();//llamo a la clase de conexión a base de datos
     validacion validar = new validacion();
 
-
     @FXML
     public void initialize() {
         eventoClick();
@@ -142,14 +141,13 @@ public class clientesController {
                     alert.alert("datos no ok");
                 }
             }else{
-                alert.alert("Error: Complete todos los campos");
+                alert.alert("Error: Completar todos los campos");
             }
         }catch (Exception e){
             System.out.println("Error al modificar: "+e.getMessage());
         }
     }
     @FXML public void Nuevo(){
-       // System.out.println("click en nuevo");
         limpiar();
     }
     @FXML public void Guardar(){
@@ -163,27 +161,34 @@ public class clientesController {
                     if(txtDocumento.getText().length()==8){
                         if(txtNombre.getText().length()>=3 && txtNombre.getText().length()<=30 && txtApellido.getText().length()>=3
                         && txtApellido.getText().length()<=30){
-                            String insert = "INSERT INTO";
-                            System.out.println("todo Ok");
+                            if(confirmar()){
+                                String insert = "INSERT INTO clientes (TipoDocumento, Documento, Nombre, Apellido,Telefono," +
+                                        "Correo, direccion, provincia, localidad) VALUES ('"+cmbTipoDocumento.getValue()
+                                        +"','"+txtDocumento.getText()+"','"+txtNombre.getText()+"','"+txtApellido.getText()
+                                        +"','"+txtTelefono.getText()+"','"+txtCorreo.getText()+"','"+txtDireccion.getText()
+                                        +"','"+txtProvincia.getText()+"','"+txtLocalidad.getText()+"')";
+                                base.Guardar(insert);
+                                System.out.println("se inserto con exito");
+                                tablaCliente.refresh();
+                            }else{
+                                System.out.println("Operacion cancelada");
+                                limpiar();
+                            }
                         }else{
-                            System.out.println("no ok");
+                            System.out.println("ERROR: el campo de Nombre/Apellido no es valido");
                         }
                     }else{
-                        System.out.println("error en dni");
+                        System.out.println("ERROR en el campo Documento");
                     }
                 }else{
-                    System.out.println("caracter invalido");
+                    System.out.println("CARACTER NO VALIDO (númericos, textos, correos)");
                 }
             }else{
-                System.out.println("Hay campos vacios");
+                System.out.println("Completar todos los campos");
             }
-            }catch (Exception e){
+        }catch (Exception e) {
             System.out.println("ERROR: no se pudo guargar nuevo usuario");
         }
-       // if(confirmar()){
-        //aqui va el insert
-       // }
-        tablaCliente.refresh();
     }
 
     @FXML public void Borrar(){
