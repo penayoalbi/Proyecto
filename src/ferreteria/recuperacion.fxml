@@ -2,22 +2,30 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.Recuperacion">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #A3E4D7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.Recuperacion">
    <children>
-      <Pane fx:id="vistaNuevoUsuario" layoutX="85.0" layoutY="22.0" prefHeight="364.0" prefWidth="448.0">
+      <Pane fx:id="vistaNuevoUsuario" layoutX="70.0" layoutY="16.0" prefHeight="83.0" prefWidth="463.0" style="-fx-background-color: #F8F9F9;">
          <children>
-            <Button fx:id="guardarCambio" layoutX="132.0" layoutY="225.0" mnemonicParsing="false" onAction="#guardarCambio" prefHeight="29.0" prefWidth="90.0" text="Guardar" />
-            <Button fx:id="cancelarCambio" layoutX="234.0" layoutY="225.0" mnemonicParsing="false" onAction="#cancelarCambio" prefHeight="29.0" prefWidth="90.0" text="Cancelar" />
-            <Label layoutX="15.0" layoutY="99.0" text="Código de Usuario" />
-            <Label layoutX="15.0" layoutY="144.0" text="Nueva Contraseña" />
-            <Label layoutX="14.0" layoutY="186.0" text="Repetir Contraseña" />
-            <TextField fx:id="usuarioID" layoutX="132.0" layoutY="94.0" prefHeight="29.0" prefWidth="228.0" />
-            <TextField fx:id="nuevaContraseña" layoutX="132.0" layoutY="139.0" prefHeight="29.0" prefWidth="228.0" />
-            <TextField fx:id="repetirContraseña" layoutX="132.0" layoutY="181.0" prefHeight="29.0" prefWidth="228.0" />
-            <Button fx:id="btnEnviarCorreo" layoutX="344.0" layoutY="14.0" mnemonicParsing="false" onAction="#enviarCorreo" prefHeight="29.0" prefWidth="90.0" text="Enviar" />
-            <TextField fx:id="txtCorreoRecupero" layoutX="69.0" layoutY="14.0" prefHeight="29.0" prefWidth="254.0" />
-            <Label layoutX="15.0" layoutY="14.0" prefHeight="29.0" prefWidth="54.0" text="Correo" />
+            <Button fx:id="btnEnviarCorreo" layoutX="359.0" layoutY="22.0" mnemonicParsing="false" onAction="#enviarCorreo" prefHeight="36.0" prefWidth="90.0" text="Enviar" textFill="#11e40a" />
+            <TextField fx:id="txtCorreoRecupero" layoutX="69.0" layoutY="27.0" prefHeight="29.0" prefWidth="281.0" />
+            <Label layoutX="14.0" layoutY="29.0" prefHeight="29.0" prefWidth="54.0" text="Correo" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneRecupero" layoutX="74.0" layoutY="169.0" prefHeight="203.0" prefWidth="463.0" style="-fx-background-color: #F8F9F9;">
+         <children>
+            <Label layoutX="37.0" layoutY="99.0" prefHeight="29.0" prefWidth="116.0" text="Repetir Contraseña" />
+            <Label layoutX="42.0" layoutY="63.0" prefHeight="29.0" prefWidth="109.0" text="Nueva Contraseña" />
+            <Label layoutX="43.0" layoutY="24.0" prefHeight="29.0" prefWidth="109.0" text="Código Validador" />
+            <Button fx:id="cancelarCambio" layoutX="310.0" layoutY="153.0" mnemonicParsing="false" onAction="#cancelarCambio" prefHeight="36.0" prefWidth="90.0" text="Cancelar" textFill="#ee0b0b" />
+            <Button fx:id="guardarCambio" layoutX="172.0" layoutY="153.0" mnemonicParsing="false" onAction="#guardarCambio" prefHeight="36.0" prefWidth="90.0" text="Guardar" textFill="#45ee12">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Button>
+            <PasswordField fx:id="txtValidador" layoutX="172.0" layoutY="24.0" prefHeight="29.0" prefWidth="245.0" />
+            <PasswordField fx:id="txtNuevaContraseña" layoutX="172.0" layoutY="63.0" prefHeight="29.0" prefWidth="245.0" />
+            <PasswordField fx:id="txtRepetirContraseña" layoutX="172.0" layoutY="99.0" prefHeight="29.0" prefWidth="245.0" />
          </children>
       </Pane>
    </children>

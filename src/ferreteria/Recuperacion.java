@@ -4,50 +4,35 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
-import java.security.InvalidParameterException;
 import java.sql.ResultSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
     private static final int WITDH = 0;
     @FXML private AnchorPane vistaRecuperacion;
     @FXML private Pane formRecuperacion;
+    @FXML private Pane paneRecupero;
     @FXML private Pane vistaEnviarCorreo;
-    @FXML private TextField usuarioID, nuevaContraseña, repetirContraseña;
+    @FXML private TextField txtValidador, txtNuevaContraseña, txtRepetirContraseña;
     @FXML private Button guardarCambio;
     @FXML private Button cancelarCambio;
     @FXML private Button btnEnviarCorreo;
     public TextField txtCorreoRecupero;
 
+    bd base = new bd();
     validacion valida = new validacion();
     Email email = new  Email();
-    @FXML
-    public void initialize1(){
-      //  formRecuperacion.setVisible(false);
-    }
 
-    @FXML
-    public void guardarCambio(){
-        bd base = new bd();
-        ResultSet rs;
-        if(!nuevaContraseña.getText().equals("")){
-            String sql=( "UPDATE `usuarios` SET `clave` = '"+nuevaContraseña.getText()
-                    +"' WHERE `usuarios`.`usuarioID` = "+usuarioID.getText());
-            base.Guardar(sql);
-            limpiarCeldas();
-        }else{
-            System.out.println("el campo esta vacio");
-        }
-    }
     @FXML
     public void controladorClose(){
         System.out.println("click en guardar cambio");
@@ -60,29 +45,57 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
             stage.setScene(scene);
             stage.show();
             stage.setOnCloseRequest(e-> controladorClose());// cuando se cierra debe ejecutar esto
-            Stage myStage = (Stage) this.guardarCambio.getScene().getWindow();//para cerrar ventana, pero siempre hay una en pantalla
-            myStage.close();
         }catch (IOException e){
-            Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null,e);
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null,e);
         }
     }
 
-    @FXML
-    public void cancelarCambio(){
-        System.out.println("click en  Cancelar Cambio");
-        //System.exit(WITDH);
-    }
+    public String claveAleatorio ="";
 
-    @FXML public void enviarCorreo() {
-       // formRecuperacion.setVisible(true);
+    @FXML public String enviarCorreo() {
+        claveAleatorio=retornaAleatrio();
         try{
-           // if(!txtCorreoRecupero.getText().equals("") && valida.validarEmail(txtCorreoRecupero.getText())) {
-                email.enviarCorreo(txtCorreoRecupero.getText(),retornaAleatrio());
-                System.out.println("se envio correctamente. Revise su correo" +retornaAleatrio());
-           // }
-        }catch (InvalidParameterException | MessagingException  e){
-            System.out.println("error al enviar correo de recupero: "+e.getMessage());
+            if(!txtCorreoRecupero.getText().equals("") && valida.validarEmail(txtCorreoRecupero.getText())) {
+                email.enviarCorreo(txtCorreoRecupero.getText(),claveAleatorio);
+
+                System.out.println("se envio correctamente. Mi clave autogenerada es: " +claveAleatorio);
+                Alert alert = new Alert(Alert.AlertType.valueOf(String.valueOf(Alert.AlertType.INFORMATION)));
+                alert.setHeaderText(null);
+                alert.setTitle("Exito");
+                alert.setContentText("Revise su casilla de correo.");
+                alert.showAndWait();
+            }
+            return claveAleatorio;
+        }catch ( Exception e){
+            System.out.println("Error al enviar correo de recupero: "+e.getMessage());
+            return claveAleatorio;
         }
+    }
+
+    @FXML public void guardarCambio(){
+        System.out.println("click en guardar cambio");
+        System.out.println("clave aleatorio viene de enviar correo: "+claveAleatorio);
+        ResultSet rs;
+        String sql = "SELECT usuarioID, correo FROM `usuarios` WHERE correo = '"+txtCorreoRecupero+"'";
+        try{
+            rs=base.Consultar(sql);
+            while (rs.next()){
+                String id=rs.getString("usuarioID");
+                System.out.println("id es : "+id);
+                if(!txtValidador.getText().equals("")){
+                    String update="UPDATE usuarios SET clave = '"+txtNuevaContraseña.getText()
+                            +"'"+"WHERE usuarioID = '"+id+"'";
+                    base.Guardar(update);
+                    System.out.println("nuevo: "+txtNuevaContraseña);
+                    limpiarCeldas();
+                }else{
+                    System.out.println("no se encontraron correo");
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error: "+e.getMessage());
+        }
+        System.out.println("correo de recupero: "+ txtCorreoRecupero.getText());
     }
 
     @FXML
@@ -105,11 +118,17 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
     }
 
     @FXML
+    public void cancelarCambio(){
+        System.out.println("click en  Cancelar Cambio");
+        //System.exit(WITDH);
+    }
+
+    @FXML
     public void limpiarCeldas(){
         //txt_idprofe.setText(null);
-        usuarioID.setText(null);
-        nuevaContraseña.setText(null);
-        repetirContraseña.setText(null);
+        txtValidador.setText(null);
+        txtNuevaContraseña.setText(null);
+        txtRepetirContraseña.setText(null);
     }
 
 }
