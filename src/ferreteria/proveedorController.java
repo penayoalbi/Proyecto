@@ -147,10 +147,13 @@ public class proveedorController {
             System.out.println("Error al modificar: "+e.getMessage());
         }
     }
+
     @FXML public void Nuevo(){
         limpiarCeldas();
     }
+
     @FXML public void Borrar(){}
+
     @FXML public void Guardar(){
         txtProveedorID.setDisable(true);
         try{
@@ -164,12 +167,12 @@ public class proveedorController {
                     }else{
                         if(txtDocumento.getText().length()==8){
                             if(alert.confirmar()){
-                                String update = "UPDATE proveedor SET proveedorID = '"+txtProveedorID.getText()+"',tipoDocumento='"
-                                        +cmbTipoDocumento.getValue()+"',documento ='"+txtDocumento.getText()+"',nombre='"
-                                        +txtNombre.getText()+"',apellido ='"+txtApellido.getText()+"',telefono='"
-                                        +txtTelefono.getText()+"',correo='"+txtCorreo.getText()+"', direccion ='"
-                                        +txtDireccion.getText()+"'"+"WHERE proveedorID='"+txtProveedorID.getText()+"'";
-                                base.modificardatos(update);
+                                String update = "INSERT INTO proveedor (tipoDocumento, documento, nombre, apellido, " +
+                                        "telefono, correo, direccion) VALUES ('"+cmbTipoDocumento.getValue()+ "','"
+                                        +txtDocumento.getText()+"','" +txtNombre.getText()+"','"
+                                        +txtApellido.getText()+"','" +txtTelefono.getText()+"','"
+                                        +txtCorreo.getText()+"','" +txtDireccion.getText()+"')";
+                                base.Guardar(update);
                                 limpiarGrilla();
                                 tablaProveedor.refresh();
                             }else{
@@ -185,9 +188,8 @@ public class proveedorController {
                 System.out.println("hay campos vacios");
             }
         }catch (Exception e){
-            System.out.println("Error al modificar: "+e.getMessage());
+            System.out.println("Error al registrar nuevo proveedor: "+e.getMessage());
         }
-
     }
 
     @FXML public void limpiarGrilla(){
@@ -203,5 +205,4 @@ public class proveedorController {
         txtCorreo.setText(null);
         txtDireccion.setText(null);
     }
-
 }
