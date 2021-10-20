@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.proveedorController">
+   <children>
+      <BorderPane layoutX="11.0" layoutY="7.0" prefHeight="596.0" prefWidth="878.0">
+         <top>
+            <Pane onDragDetected="#Borrar" prefHeight="608.0" prefWidth="743.0" style="-fx-background-color: #DAF7A6;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="22.0" layoutY="44.0" prefHeight="31.0" prefWidth="81.0" text="ProveedorID" />
+                  <Label layoutX="348.0" layoutY="50.0" prefHeight="19.0" prefWidth="76.0" text="Teléfono" />
+                  <Label layoutX="22.0" layoutY="125.0" prefHeight="19.0" prefWidth="91.0" text="Documento" />
+                  <Label layoutX="22.0" layoutY="154.0" prefHeight="24.0" prefWidth="61.0" text="Nombre" />
+                  <Label layoutX="23.0" layoutY="194.0" prefHeight="23.0" prefWidth="79.0" text="Apellido" />
+                  <TableView fx:id="tablaProveedor" layoutX="35.0" layoutY="285.0" prefHeight="305.0" prefWidth="829.0">
+                    <columns>
+                      <TableColumn fx:id="colProveedorID" prefWidth="86.0" text="ProveedorID" />
+                      <TableColumn fx:id="colTipoDocumento" prefWidth="110.0" text="TipoDocumento" />
+                        <TableColumn fx:id="colDocumento" prefWidth="108.0" text="Nro Documento" />
+                        <TableColumn fx:id="colNombre" prefWidth="95.0" text="Nombre" />
+                        <TableColumn fx:id="colApellido" prefWidth="108.0" text="Apellido" />
+                        <TableColumn fx:id="colTelefono" prefWidth="108.0" text="Telefono" />
+                        <TableColumn fx:id="colCorreo" prefWidth="108.0" text="Correo" />
+                        <TableColumn fx:id="colDireccion" prefWidth="108.0" text="Dirección" />
+                    </columns>
+                  </TableView>
+                  <TextField fx:id="txtProveedorID" layoutX="113.0" layoutY="45.0" prefHeight="29.0" prefWidth="189.0" />
+                  <TextField fx:id="txtTelefono" layoutX="450.0" layoutY="45.0" prefHeight="29.0" prefWidth="189.0" />
+                  <TextField fx:id="txtDocumento" layoutX="113.0" layoutY="120.0" prefHeight="29.0" prefWidth="189.0" />
+                  <TextField fx:id="txtNombre" layoutX="113.0" layoutY="154.0" prefHeight="29.0" prefWidth="189.0" />
+                  <TextField fx:id="txtApellido" layoutX="113.0" layoutY="191.0" prefHeight="29.0" prefWidth="189.0" />
+                  <ComboBox fx:id="cmbTipoDocumento" layoutX="113.0" layoutY="83.0" prefHeight="29.0" prefWidth="189.0" />
+                  <Label layoutX="16.0" layoutY="82.0" prefHeight="31.0" prefWidth="93.0" text="TipoDocumento" />
+                  <TextField fx:id="txtCorreo" layoutX="450.0" layoutY="83.0" prefHeight="29.0" prefWidth="189.0" />
+                  <Label layoutX="352.0" layoutY="85.0" prefHeight="25.0" prefWidth="82.0" text="Correo" />
+                  <TextField fx:id="txtDireccion" layoutX="450.0" layoutY="120.0" prefHeight="29.0" prefWidth="189.0" />
+                  <Label layoutX="348.0" layoutY="122.0" prefHeight="25.0" prefWidth="91.0" text="Dirección" />
+                  <Button fx:id="btnListar" layoutX="450.0" layoutY="180.0" mnemonicParsing="false" onAction="#Listar" prefHeight="29.0" prefWidth="189.0" text="Listar" />
+                  <Button fx:id="btnNuevo" layoutX="450.0" layoutY="220.0" mnemonicParsing="false" onAction="#Nuevo" prefHeight="29.0" prefWidth="190.0" text="Nuevo" />
+                  <Button fx:id="btnGuardar" layoutX="666.0" layoutY="45.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="29.0" prefWidth="190.0" text="Guardar" />
+                  <Button fx:id="btnCancelar" layoutX="666.0" layoutY="83.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="190.0" text="Cancelar" />
+                  <Button fx:id="btnModificar" layoutX="666.0" layoutY="130.0" mnemonicParsing="false" onAction="#Modificar" prefHeight="29.0" prefWidth="190.0" text="Modificar" />
+                  <Button fx:id="btnBorrar" layoutX="666.0" layoutY="177.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="190.0" text="Borrar" />
+               </children></Pane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
