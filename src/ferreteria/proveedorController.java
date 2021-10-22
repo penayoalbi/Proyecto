@@ -39,6 +39,7 @@ public class proveedorController {
     bd base= new bd();
     validacion validar = new validacion();
     clientesController alert= new clientesController();
+    Controller msj = new Controller();
     ObservableList<proveedor> oblist = FXCollections.observableArrayList();//lista observable
 
     @FXML
@@ -123,11 +124,16 @@ public class proveedorController {
                     }else{
                         if(txtDocumento.getText().length()==8){
                             if(alert.confirmar()){
-                                String update = "UPDATE proveedor SET proveedorID = '"+txtProveedorID.getText()+"',tipoDocumento='"
-                                        +cmbTipoDocumento.getValue()+"',documento ='"+txtDocumento.getText()+"',nombre='"
-                                        +txtNombre.getText()+"',apellido ='"+txtApellido.getText()+"',telefono='"
-                                        +txtTelefono.getText()+"',correo='"+txtCorreo.getText()+"', direccion ='"
-                                        +txtDireccion.getText()+"'"+"WHERE proveedorID='"+txtProveedorID.getText()+"'";
+                                String update = "UPDATE proveedor SET proveedorID = '"
+                                        +txtProveedorID.getText()+"',tipoDocumento='"
+                                        +cmbTipoDocumento.getValue()+"',documento ='"
+                                        +txtDocumento.getText()+"',nombre='"
+                                        +txtNombre.getText()+"',apellido ='"
+                                        +txtApellido.getText()+"',telefono='"
+                                        +txtTelefono.getText()+"',correo='"
+                                        +txtCorreo.getText()+"', direccion ='"
+                                        +txtDireccion.getText()+"'"
+                                        +"WHERE proveedorID='"+txtProveedorID.getText()+"'";
                                 base.modificardatos(update);
                                 limpiarGrilla();
                                 tablaProveedor.refresh();
@@ -152,7 +158,25 @@ public class proveedorController {
         limpiarCeldas();
     }
 
-    @FXML public void Borrar(){}
+    @FXML public void Borrar(){
+        System.out.println("click en borrar");
+          try{
+            int item = tablaProveedor.getSelectionModel().getSelectedItem().getProveedorID();
+          //  String deshFk="SET GLOBAL FOREIGN_KEY_CHECKS=0";
+          //  base.Consultar(deshFk);//deshabilitar el Fk
+            String eliminar = "DELETE FROM proveedor WHERE proveedorID ='"+item+"'";
+            if(alert.confirmar()){
+                if(base.buscarIdex(eliminar)){
+                    msj.alert("Se elimino con exito: id eliminado:  "+ item);
+                    String habFk="SET GLOBAL FOREIGN_KEY_CHECKS=1";
+                    base.Consultar(habFk);
+                    tablaProveedor.refresh();
+                }
+            }
+        }catch (Exception e){
+            System.out.println("ERROR al eliminar "+e.getMessage());
+        }
+    }
 
     @FXML public void Guardar(){
         txtProveedorID.setDisable(true);

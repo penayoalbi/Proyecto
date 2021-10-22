@@ -42,7 +42,7 @@
                   <Button fx:id="btnGuardar" layoutX="666.0" layoutY="45.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="29.0" prefWidth="190.0" text="Guardar" />
                   <Button fx:id="btnCancelar" layoutX="666.0" layoutY="83.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="190.0" text="Cancelar" />
                   <Button fx:id="btnModificar" layoutX="666.0" layoutY="130.0" mnemonicParsing="false" onAction="#Modificar" prefHeight="29.0" prefWidth="190.0" text="Modificar" />
-                  <Button fx:id="btnBorrar" layoutX="666.0" layoutY="177.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="190.0" text="Borrar" />
+                  <Button fx:id="btnBorrar" layoutX="666.0" layoutY="177.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="29.0" prefWidth="190.0" text="Borrar" />
                </children></Pane>
          </top>
       </BorderPane>
