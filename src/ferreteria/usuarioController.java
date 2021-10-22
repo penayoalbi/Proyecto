@@ -9,9 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.ComboBox;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
@@ -43,14 +40,14 @@ public class usuarioController {
     @FXML private TextField txtCorreo;
     @FXML private TextField txtDomicilio;
     @FXML private TextField txtClave;
-    @FXML private TextField txtEstado;
-    @FXML private TextField txtCargo;
-    @FXML private ComboBox cmbDocumento;
+    @FXML private ComboBox cmbDocumento, cmbEstado, cmbCargo;
     @FXML private TextField txtPrueba;
 
     Seguridad seguridad = new Seguridad();//instanciar seguridad
     Controller alert = new Controller();
+    clientesController event = new clientesController();
     bd newbd= new bd();//llamo a la clase de conexión a base de datos
+    validacion validar = new validacion();
 
     ObservableList<usuario> oblist = FXCollections.observableArrayList();//lista observable
 
@@ -83,6 +80,22 @@ public class usuarioController {
         cmbDocumento.getItems().clear();
         cmbDocumento.setItems(tipoD);
         cmbDocumento.setValue("Seleccionar...");
+
+        List<String> estado = new ArrayList<>();
+        estado.add("Habilitado");
+        estado.add("Deshabilitado");
+        ObservableList boxEstado = FXCollections.observableArrayList(estado);
+        cmbEstado.getItems().clear();
+        cmbEstado.setItems(boxEstado);
+        cmbEstado.setValue("Seleccionar");
+
+        List<String> cargo = new ArrayList<>();
+        cargo.add("Administrador");
+        cargo.add("Vendedor");
+        ObservableList boxCargo = FXCollections.observableArrayList(cargo);
+        cmbCargo.getItems().clear();
+        cmbCargo.setItems(boxCargo);
+        cmbCargo.setValue("Seleccionar");
     }
 
     @FXML
@@ -107,7 +120,7 @@ public class usuarioController {
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             colApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
             colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
-            colClave.setCellValueFactory(new PropertyValueFactory<>("clave"));
+            //colClave.setCellValueFactory(new PropertyValueFactory<>("clave"));
             colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
             colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
             colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
@@ -133,8 +146,8 @@ public class usuarioController {
             txtCorreo.setText(String.valueOf(valorActual.getCorreo()));
             txtDomicilio.setText(String.valueOf(valorActual.getDomicilio()));
             txtClave.setText(String.valueOf(valorActual.getClave()));
-            txtEstado.setText(String.valueOf(valorActual.getEstado()));
-            txtCargo.setText(String.valueOf(valorActual.getCargo()));
+            cmbEstado.setValue(valorActual.getEstado());
+            cmbCargo.setValue(valorActual.getCargo());
 
             btnListar.setDisable(true);
             txtUsuarioID.setDisable(true);
@@ -147,6 +160,96 @@ public class usuarioController {
     public void nuevoUsuario(){
         limpiarSeldas();
     }
+
+    @FXML
+    public void guardar(){
+        System.out.println(" click en guardar");
+        //btnListar.setDisable(true);
+        try{
+            if (cmbDocumento.getItems().equals("") || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
+                    || txtApellido.getText().equals("") || txtCorreo.getText().equals("") || txtClave.getText().equals("")
+                    || cmbCargo.getItems().equals("") || txtTelefono.getText().equals("") || cmbEstado.getItems().equals("")
+                    || txtDomicilio.getText().equals("")) {
+                    alert.alert("Error: Campo vacio");
+            }else{
+                if(validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText())
+                        && validar.validarEmail(txtCorreo.getText())){
+                    if (txtDocumento.getText().length()>=5){
+                        if(txtNombre.getText().length()>=3 && txtNombre.getText().length()<=30
+                                && txtApellido.getText().length()>=3
+                                && txtApellido.getText().length()<=30){
+                            if(event.confirmar()){
+                                String claveEncriptada = Encriptar(txtClave.getText());
+                                String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido," +
+                                        " correo, clave, cargo, telefono, estado, domicilio) " +
+                                        "VALUES ('"+cmbDocumento.getValue()+
+                                        "','"+txtDocumento.getText()+
+                                        "','"+txtNombre.getText()+
+                                        "','"+txtApellido.getText() +
+                                        "','" +txtCorreo.getText()+
+                                        "','" +claveEncriptada+
+                                        "','" +cmbCargo.getValue()+
+                                        "','" +txtTelefono.getText()+
+                                        "','"+cmbEstado.getValue()+
+                                        "','" +txtDomicilio.getText()+"')";
+                                System.out.println("tipo docu: "+cmbDocumento.getValue());
+                                newbd.Guardar(insert);
+                                alert.alert("Se guardó con exito!");
+                                tablaUsuario.refresh();
+                            }else{
+                                System.out.println("Operacion cancelada");
+                                limpiarSeldas();
+                            }
+                        }else{
+                            System.out.println("ERROR: el campo de Nombre/Apellido no es valido");
+                        }
+                    }else{
+                        System.out.println("ERROR: el campo documento no valido");
+                    }
+                }else{
+                    System.out.println("CARACTER NO VALIDO");
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error al guardar: "+e.getMessage());
+        }
+   }
+   @FXML
+   public void Modificar(){
+       System.out.println("click en editar");
+       btnListar.setDisable(false);
+       txtUsuarioID.setDisable(false);
+       //campo vacio
+       try {
+           if (txtUsuarioID.getText().equals("") || cmbDocumento.getItems().equals("")
+                   || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
+                   || txtApellido.getText().equals("") || txtCorreo.getText().equals("")
+                   || txtClave.getText().equals("") || cmbCargo.getItems().equals("")
+                   || txtTelefono.getText().equals("") || cmbEstado.getItems().equals("")
+                   || txtDomicilio.getText().equals("")) {
+               alert.alert("Error. Campo vacio");
+           } else {
+               String modificar = "UPDATE usuarios SET usuarioID ='"
+                       + txtUsuarioID.getText() + "',tipoDocumento='"
+                       + cmbDocumento.getValue().toString() + "',documento='"
+                       + txtDocumento.getText() + "',nombre='"
+                       + txtNombre.getText() + "',apellido='"
+                       + txtApellido.getText() + "',correo='"
+                       + txtCorreo.getText() + "',clave='"
+                       +txtClave.getText()+ "',cargo='"
+                       + cmbCargo.getValue() + "',telefono='"
+                       + txtTelefono.getText() + "',estado='"
+                       + cmbEstado.getValue() + "',domicilio='"
+                       + txtDomicilio.getText() + "'" +
+                       "WHERE usuarioID= '" + txtUsuarioID.getText() + "'";
+               newbd.modificardatos(modificar);
+               alert.alert("Se modificó correctamente.");
+               tablaUsuario.refresh();
+           }
+       }catch (Exception e){
+           System.out.println("error en modificar"+e.getMessage());
+       }
+   }
 
     @FXML
     public void borrarUsuario(){
@@ -167,66 +270,6 @@ public class usuarioController {
     }
 
     @FXML
-    public void guardar(){
-        System.out.println(" click en guardar");
-        //btnListar.setDisable(true);
-        try{
-            if (cmbDocumento.getItems().equals("") || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
-                    || txtApellido.getText().equals("") || txtCorreo.getText().equals("") || txtClave.getText().equals("")
-                    || txtCargo.getText().equals("") || txtTelefono.getText().equals("") || txtEstado.getText().equals("")
-                    || txtDomicilio.getText().equals("")) {
-                    alert.alert("Error: Campo vacio");
-            }else{
-              //  if(){
-
-
-                    String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido, correo, clave, cargo," +
-                            " telefono, estado, domicilio) VALUES ('" +cmbDocumento.getValue().toString()+
-                            "','"+txtDocumento.getText()+"','"+txtNombre.getText()+ "','"+txtApellido.getText()+
-                            "','" +txtCorreo.getText()+ "','" +txtClave.getText()+ "','" +txtCargo.getText()+
-                            "','" +txtTelefono.getText()+"','"+txtEstado.getText()+
-                            "','" +txtDomicilio.getText()+"')";
-                    newbd.Guardar(insert);
-                    alert.alert("se guardó");
-                    tablaUsuario.refresh();
-               // }
-            }
-        }catch (Exception e){
-            System.out.println("Error al guardar: "+e.getMessage());
-        }
-   }
-   @FXML
-   public void Modificar(){
-       System.out.println("click en editar");
-       btnListar.setDisable(false);
-       txtUsuarioID.setDisable(false);
-       //campo vacio
-       try {
-           if (txtUsuarioID.getText().equals("") || cmbDocumento.getItems().equals("")
-                   || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
-                   || txtApellido.getText().equals("") || txtCorreo.getText().equals("")
-                   || txtClave.getText().equals("") || txtCargo.getText().equals("")
-                   || txtTelefono.getText().equals("") || txtEstado.getText().equals("")
-                   || txtDomicilio.getText().equals("")) {
-               alert.alert("Error. Campo vacio");
-           } else {
-               String modificar = "UPDATE usuarios SET usuarioID ='"
-                       + txtUsuarioID.getText() + "',tipoDocumento='" + cmbDocumento.getValue().toString() + "',documento='"
-                       + txtDocumento.getText() + "',nombre='" + txtNombre.getText() + "',apellido='"
-                       + txtApellido.getText() + "',correo='" + txtCorreo.getText() + "',clave='" +txtClave.getText()+ "',cargo='"
-                       + txtCargo.getText() + "',telefono='" + txtTelefono.getText() + "',estado='"
-                       + txtEstado.getText() + "',domicilio='" + txtDomicilio.getText() + "'" +
-                       "WHERE usuarioID= '" + txtUsuarioID.getText() + "'";
-               newbd.modificardatos(modificar);
-               alert.alert("Se modificó correctamente.");
-               tablaUsuario.refresh();
-           }
-       }catch (Exception e){
-           System.out.println("error en modificar"+e.getMessage());
-       }
-   }
-
-    @FXML
     public void cancelar (){}
 
     @FXML
@@ -234,12 +277,13 @@ public class usuarioController {
         txtUsuarioID.setText(null);
         txtNombre.setText(null);
         txtApellido.setText(null);
-        txtCargo.setText(null);
+        txtDocumento.setText(null);
+        cmbCargo.setValue(null);
         txtCorreo.setText(null);
         txtTelefono.setText(null);
         txtClave.setText(null);
         txtDomicilio.setText(null);
-        txtEstado.setText(null);
+        cmbEstado.setValue(null);
         cmbDocumento.setValue(null);
     }
 

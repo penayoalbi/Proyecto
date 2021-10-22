@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="625.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.usuarioController">
+<AnchorPane prefHeight="600.0" prefWidth="1081.0" style="-fx-background-color: #D4EFDF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.usuarioController">
    <children>
-      <Pane fx:id="grillaUsuario" layoutX="102.0" layoutY="244.0" prefHeight="327.0" prefWidth="979.0">
+      <Pane fx:id="grillaUsuario" layoutX="94.0" layoutY="255.0" prefHeight="316.0" prefWidth="915.0">
          <children>
-            <TableView fx:id="tablaUsuario" layoutX="-6.0" layoutY="13.0" prefHeight="313.0" prefWidth="972.0" style="-fx-background-color: #fff;">
+            <TableView fx:id="tablaUsuario" layoutX="3.0" layoutY="-2.0" prefHeight="310.0" prefWidth="922.0" style="-fx-background-color: #fff;">
               <columns>
                 <TableColumn fx:id="colUsuarioID" prefWidth="68.0" text="usuarioID" />
                   <TableColumn fx:id="colTipoDocumento" prefWidth="108.0" text="Tipo" />
@@ -15,7 +15,6 @@
                   <TableColumn fx:id="colNombre" prefWidth="61.0" text="Nombre" />
                   <TableColumn fx:id="colApellido" prefWidth="68.0" text="Apellido" />
                   <TableColumn fx:id="colCorreo" prefWidth="119.0" text="Correo" />
-                  <TableColumn fx:id="colClave" prefWidth="50.0" text="Clave" />
                   <TableColumn fx:id="colCargo" prefWidth="61.0" text="Cargo" />
                   <TableColumn fx:id="colTelefono" prefWidth="90.0" text="Teléfono" />
                   <TableColumn fx:id="colEstado" prefWidth="76.0" text="Estado" />
@@ -49,9 +48,9 @@
       <Button fx:id="btnBorrar" layoutX="875.0" layoutY="178.0" mnemonicParsing="false" onAction="#borrarUsuario" prefHeight="29.0" prefWidth="169.0" text="Borrar" />
       <Button fx:id="btnGuardar" layoutX="609.0" layoutY="27.0" mnemonicParsing="false" onAction="#guardar" prefHeight="29.0" prefWidth="169.0" text="Guardar" />
       <Button fx:id="btnCancelar" layoutX="609.0" layoutY="75.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="29.0" prefWidth="169.0" text="Cancelar" />
-      <TextField fx:id="txtEstado" layoutX="406.0" layoutY="177.0" />
       <Label layoutX="339.0" layoutY="179.0" prefHeight="27.0" prefWidth="53.0" text="Estado" />
-      <TextField fx:id="txtCargo" layoutX="409.0" layoutY="216.0" prefHeight="29.0" prefWidth="162.0" />
       <Label layoutX="340.0" layoutY="220.0" prefHeight="29.0" prefWidth="53.0" text="Cargo" />
+      <ComboBox fx:id="cmbEstado" layoutX="406.0" layoutY="179.0" prefHeight="29.0" prefWidth="162.0" />
+      <ComboBox fx:id="cmbCargo" layoutX="406.0" layoutY="220.0" prefHeight="29.0" prefWidth="162.0" />
    </children>
 </AnchorPane>

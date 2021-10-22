@@ -13,6 +13,7 @@ public class usuario {
     private String estado;
     private String domicilio;
 
+    //construct
     public usuario(Integer usuarioID, String tipoDocumento, String documento, String nombre,
                    String apellido, String correo, String clave, String cargo, String telefono,
                    String estado, String domicilio)
