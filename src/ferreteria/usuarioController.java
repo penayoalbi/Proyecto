@@ -107,7 +107,8 @@ public class usuarioController {
             ResultSet rs;
             rs = base.Consultar("SELECT * FROM usuarios");
             while (rs.next()) {
-                oblist.add(new usuario(rs.getInt("usuarioID"), rs.getString("tipoDocumento"),
+                oblist.add(new usuario(rs.getInt("usuarioID"),
+                        rs.getString("tipoDocumento"),
                         rs.getString("documento"), rs.getString("nombre"),
                         rs.getString("apellido"), rs.getString("correo"),
                         rs.getString("clave"), rs.getString("cargo"),
@@ -145,7 +146,7 @@ public class usuarioController {
             txtTelefono.setText(String.valueOf(valorActual.getTelefono()));
             txtCorreo.setText(String.valueOf(valorActual.getCorreo()));
             txtDomicilio.setText(String.valueOf(valorActual.getDomicilio()));
-            txtClave.setText(String.valueOf(valorActual.getClave()));
+           // txtClave.setText(String.valueOf(valorActual.getClave()));
             cmbEstado.setValue(valorActual.getEstado());
             cmbCargo.setValue(valorActual.getCargo());
 
@@ -166,10 +167,11 @@ public class usuarioController {
         System.out.println(" click en guardar");
         //btnListar.setDisable(true);
         try{
-            if (cmbDocumento.getItems().equals("") || txtDocumento.getText().equals("") || txtNombre.getText().equals("")
-                    || txtApellido.getText().equals("") || txtCorreo.getText().equals("") || txtClave.getText().equals("")
-                    || cmbCargo.getItems().equals("") || txtTelefono.getText().equals("") || cmbEstado.getItems().equals("")
-                    || txtDomicilio.getText().equals("")) {
+            if (cmbDocumento.getItems().equals("") || txtDocumento.getText().equals("")
+                    || txtNombre.getText().equals("") || txtApellido.getText().equals("")
+                    || txtCorreo.getText().equals("") || txtClave.getText().equals("")
+                    || cmbCargo.getItems().equals("") || txtTelefono.getText().equals("")
+                    || cmbEstado.getItems().equals("")|| txtDomicilio.getText().equals("")) {
                     alert.alert("Error: Campo vacio");
             }else{
                 if(validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText())
@@ -229,6 +231,7 @@ public class usuarioController {
                    || txtDomicilio.getText().equals("")) {
                alert.alert("Error. Campo vacio");
            } else {
+               String claveModificada= Encriptar(txtClave.getText());
                String modificar = "UPDATE usuarios SET usuarioID ='"
                        + txtUsuarioID.getText() + "',tipoDocumento='"
                        + cmbDocumento.getValue().toString() + "',documento='"
@@ -236,7 +239,7 @@ public class usuarioController {
                        + txtNombre.getText() + "',apellido='"
                        + txtApellido.getText() + "',correo='"
                        + txtCorreo.getText() + "',clave='"
-                       +txtClave.getText()+ "',cargo='"
+                       +claveModificada + "',cargo='"
                        + cmbCargo.getValue() + "',telefono='"
                        + txtTelefono.getText() + "',estado='"
                        + cmbEstado.getValue() + "',domicilio='"
@@ -291,18 +294,18 @@ public class usuarioController {
     public String Encriptar(String clave) throws NoSuchAlgorithmException {
         String secretKey = "prueba";
         String encriptar = "";
-            encriptar = seguridad.Encriptar(secretKey,clave);
-            System.out.println("esto es prueba: " + encriptar);
-            return encriptar;
+        encriptar = seguridad.Encriptar(secretKey,clave);
+        System.out.println("esto es prueba: " + encriptar);
+        return encriptar;
     }
 
-    public void desencriptar(String clave) throws NoSuchAlgorithmException
+    public String desencriptar(String clave) throws NoSuchAlgorithmException
     {
         String secrectKey = "prueba";
         String cadena_encriptada ="uNKA850kweI=";
-        String Texto_desencriptado = Seguridad.Desencriptar(secrectKey,cadena_encriptada);
-        // lblTextoDesencriptado.setText(Texto_desencriptado);
-        System.out.println("texto desencriptado: " + Texto_desencriptado);
+        String Texto_desencriptado = Seguridad.Desencriptar(secrectKey,clave);
+        //lblTextoDesencriptado.setText(Texto_desencriptado);
+        //System.out.println("texto desencriptado: " + Texto_desencriptado);
+        return Texto_desencriptado;
     }
-
 }

@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
     private static final int WITDH = 0;
@@ -32,6 +30,8 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
     bd base = new bd();
     validacion valida = new validacion();
     Email email = new  Email();
+    Controller alert = new Controller();
+    public String claveAleatorio ="";//es donde almaceno lo que mando por email.
 
     @FXML
     public void controladorClose(){
@@ -44,13 +44,11 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-            stage.setOnCloseRequest(e-> controladorClose());// cuando se cierra debe ejecutar esto
+           // stage.setOnCloseRequest(e-> controladorClose());// cuando se cierra debe ejecutar esto
         }catch (IOException e){
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null,e);
+           // Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null,e);
         }
     }
-
-    public String claveAleatorio ="";
 
     @FXML public String enviarCorreo() {
         claveAleatorio=retornaAleatrio();
@@ -58,7 +56,7 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
             if(!txtCorreoRecupero.getText().equals("") && valida.validarEmail(txtCorreoRecupero.getText())) {
                 email.enviarCorreo(txtCorreoRecupero.getText(),claveAleatorio);
 
-                System.out.println("se envio correctamente. Mi clave autogenerada es: " +claveAleatorio);
+                System.out.println("Se envio correctamente. Mi clave autogenerada es: " +claveAleatorio);
                 Alert alert = new Alert(Alert.AlertType.valueOf(String.valueOf(Alert.AlertType.INFORMATION)));
                 alert.setHeaderText(null);
                 alert.setTitle("Exito");
@@ -76,29 +74,37 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
         System.out.println("click en guardar cambio");
         System.out.println("clave aleatorio viene de enviar correo: "+claveAleatorio);
         ResultSet rs;
-        String sql = "SELECT usuarioID, correo FROM `usuarios` WHERE correo = '"+txtCorreoRecupero+"'";
+        int id = 0;
+        String sql = "SELECT usuarioID, correo FROM `usuarios` WHERE correo = '"+txtCorreoRecupero.getText()+"'";
         try{
             rs=base.Consultar(sql);
             while (rs.next()){
-                String id=rs.getString("usuarioID");
-                System.out.println("id es : "+id);
-                if(!txtValidador.getText().equals("")){
-                    String update="UPDATE usuarios SET clave = '"+txtNuevaContraseña.getText()
-                            +"'"+"WHERE usuarioID = '"+id+"'";
+                 id=rs.getInt("usuarioID");
+            }
+           // System.out.println("id: "+id);//prueba
+            if(txtValidador.getText().equals(claveAleatorio)){
+                if(txtNuevaContraseña.getText().equals(txtRepetirContraseña.getText())){
+                    String update="UPDATE usuarios set clave = '"+txtNuevaContraseña.getText()
+                            +"' where correo = '"+txtCorreoRecupero.getText()+"'";
                     base.Guardar(update);
-                    System.out.println("nuevo: "+txtNuevaContraseña);
+                    alert.alert("ÉXITO!");
+                  //  System.out.println("nuevo: "+txtNuevaContraseña.getText());
                     limpiarCeldas();
+                    controladorClose();
                 }else{
-                    System.out.println("no se encontraron correo");
+                    alert.alert("ERROR: las claves deben coincidir.");
+                    limpiarCeldas();
                 }
+            }else{
+                alert.alert("Error: Código validador invalido.");
             }
         }catch (Exception e){
             System.out.println("Error: "+e.getMessage());
+            alert.alert("Error al recuperar contraseña");
         }
-        System.out.println("correo de recupero: "+ txtCorreoRecupero.getText());
     }
 
-    @FXML
+    @FXML//devuelve una cadena aleatoria desde un banco de valores
     public static String retornaAleatrio(){
         //banco de caracteres
         String bancoCaracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -112,7 +118,7 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
         return  cadenaAleatorio;
     }
 
-    @FXML
+    @FXML//devuelve num aleatorio
     public static Integer numAleatorio(int min, int max){
         return ThreadLocalRandom.current().nextInt(min,max+1 );
     }
@@ -121,14 +127,13 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
     public void cancelarCambio(){
         System.out.println("click en  Cancelar Cambio");
         //System.exit(WITDH);
+        limpiarCeldas();
     }
 
     @FXML
     public void limpiarCeldas(){
-        //txt_idprofe.setText(null);
-        txtValidador.setText(null);
+       // txtValidador.setText(null);
         txtNuevaContraseña.setText(null);
         txtRepetirContraseña.setText(null);
     }
-
 }
