@@ -34,13 +34,13 @@ public class clientesController {
 
     @FXML private TextField txtClienteID, txtDocumento, txtNombre,
                             txtApellido, txtCorreo, txtTelefono,
-                            txtDireccion, txtProvincia, txtLocalidad;
+                            txtDireccion, txtProvincia, txtLocalidad, txtBuscar;
 
     @FXML private Button btnListar, btnModificar, btnNuevo,
                           btnGuardar, btnBuscar, btnBorrar;
 
     ObservableList<clientes> lista = FXCollections.observableArrayList();
-
+    //instanciar a clases
     Controller alert = new Controller();
     bd base= new bd();//llamo a la clase de conexión a base de datos
     validacion validar = new validacion();
@@ -136,7 +136,7 @@ public class clientesController {
                             +txtDireccion.getText() +"',provincia ='"+txtProvincia.getText()+"',localidad ='"
                             +txtLocalidad.getText()+"'"+ "WHERE clienteID ='" +txtClienteID.getText()+"'";
                     base.modificardatos(modificar);
-                    tablaCliente.refresh();
+                    //tablaCliente.refresh();
                 }else{
                     alert.alert("datos no ok");
                 }
@@ -192,7 +192,6 @@ public class clientesController {
     }
 
     @FXML public void Borrar(){
-        System.out.println("click en borrar");
         try{
             int item = tablaCliente.getSelectionModel().getSelectedItem().getClienteID();
             String eliminar = "DELETE FROM clientes WHERE clienteID ='"+item+"'";
@@ -207,6 +206,17 @@ public class clientesController {
         }
     }
     @FXML public void Buscar(){
+        ResultSet rs;
+        try{//SELECT * FROM `clientes` WHERE Nombre LIKE 'an%'
+            String buscar = "SELECT * FROM clientes WHERE Nombre LIKE '"+txtBuscar+"'% ORDER BY Nombre";
+            rs=base.Consultar(buscar);
+            while (rs.next()){
+
+            }
+
+        }catch (Exception e){
+            System.out.println("Error al buscar "+e.getMessage());
+        }
         System.out.println("click en borrar");
     }
 

@@ -1,4 +1,5 @@
 package ferreteria;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Controller {
     private static final int WITDH = 0;
@@ -31,49 +30,75 @@ public class Controller {
     @FXML
     private Hyperlink recuperacion;
 
-    @FXML
-    void ingresar(ActionEvent event) throws Exception {
-        System.out.println("Click en el boton ingresar");
-        bd base = new bd();//instancia de bd
+    bd base = new bd();//instancia de bd
 
-        if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
-            alert("llene los campos de usuario y clave");
-        } else {
-            ResultSet rs;
-            rs = base.Consultar("SELECT * FROM ferreteria.usuarios");
-            int resu = 0;
-            while (rs.next()) {
-                if (txtUsuario.getText().equals(rs.getString("nombre")) && txtClave.getText().equals(rs.getString("clave"))) {
-                    // System.out.println("bienvenidoooo");
-                    alert("Bienvenido");
-                    resu = 1;
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
-                        Parent root = loader.load();
-                        PrincipalController vistaPrincipal = loader.getController();//instancia  class
-                        Scene scene = new Scene(root);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.show();
-                        // Stage myStage = (Stage) this.vistaPrincipal.getScene().getWindow();
-                        //myStage.close();
-                    } catch (IOException e) {
-                        Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null, e);
+    @FXML
+    void ingresar(ActionEvent event)
+    {
+        String usuario = "";
+        String clave = "";
+        String estado = "";
+        System.out.println("Click en el boton ingresar");
+        try {
+            if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
+                alert("llene los campos de usuario y clave");
+            } else {
+                ResultSet rs;
+                rs = base.Consultar("SELECT usuario, clave, estado FROM ferreteria.usuarios " +
+                        "WHERE usuario = '" + txtUsuario.getText() + "'");
+                while (rs.next()) {
+                    usuario = rs.getString("usuario");
+                    clave = rs.getString("clave");
+                    estado = rs.getString("estado");
+                }
+                if (!txtUsuario.getText().equals(usuario)) {
+                    alert("USUARIO INCORRECTO");
+                } else {
+                    if (!txtClave.getText().equals(clave)) {
+                        alert("ERROR DE CONTRASEÑA");
+                    } else {
+                        if (!estado.equals("Habilitado")) {
+                            alert("USUARIO NO HABILITADO");
+                        } else {
+                            alert("Bienvenido");
+
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+                            Parent root = loader.load();
+                            PrincipalController vistaPrincipal = loader.getController();//instancia  class
+                            Scene scene = new Scene(root);
+                            Stage stage = new Stage();
+                            stage.setScene(scene);
+                            stage.show();
+                           // stage.setOnCloseRequest(e -> controladorClose());
+                          //  Stage myStage = (Stage) this.btnIngresar.getScene().getWindow();
+                            //myStage.close();
+                        }
                     }
                 }
             }
-            rs.close();
-
-            if (resu != 1) {
-                alert("Error:   usuario no existe");
-                txtUsuario.setText(null);
-                txtClave.setText(null);
-            }
+        }catch (Exception e){
+            System.out.println("Error. "+e.getMessage());
         }
     }
 
-    @FXML
-    void recuperacion(ActionEvent event) {
+
+    @FXML void controladorClose(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+            Parent root = loader.load();
+            Controller controllerPrincipal = loader.getController();//instancia controller class
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            //stage.setOnCloseRequest(e -> controladorClose());// cuando se cierra debe ejecutar esto
+        } catch (IOException e) {
+          //  Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Error.");
+        }
+    }
+
+    @FXML void recuperacion(ActionEvent event) {//llama a la vista de recuperacion
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("recuperacion.fxml"));
             Parent root = loader.load();
@@ -82,65 +107,23 @@ public class Controller {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-
-            stage.setOnCloseRequest(e -> recuperacionPass.controladorClose());// cuando se cierra ejecuta esto
-            Stage myStage = (Stage) this.recuperacion.getScene().getWindow();
-            myStage.close();
-
+           // stage.setOnCloseRequest(e -> recuperacionPass.controladorClose());// cuando se cierra ejecuta esto
         } catch (IOException e) {
            // Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println("error en recuperacion.");
+            System.out.println("error en recuperacion. no carga");
         }
     }
 
-/*
     @FXML
-    public void enviarCorreo(String destinatario, String claveGenerada) throws MessagingException {
-        String correo = "ferreteriagamarra812@gmail.com";
-        String pass = "ferreteria812";
-        String asunto = "Recupero de contraseña";//mando el mensaje que  se genero
-            Properties propiedad = new Properties();
-            propiedad.put("mail.smtp.auth", "true");
-            propiedad.put("mail.smtp.starttls.enable", "true");
-            propiedad.put("mail.smtp.host", "smtp.gmail.com");
-            propiedad.put("mail.smtp.port", "587");
-            propiedad.put("mail.smtp.clave", pass);
-
-            Session session = Session.getDefaultInstance(propiedad, new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return super.getPasswordAuthentication();
-                }
-            });
-
-            try {
-                MimeMessage mail = new MimeMessage(session);
-                mail.setFrom(new InternetAddress(correo));
-                mail.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(destinatario)));
-                mail.setSubject(asunto);
-                mail.setText("Su clave de recuperación es: " + claveGenerada);
-                Transport transport = session.getTransport("smtp");
-                transport.connect("smtp.gmail.com", correo, pass);
-                transport.sendMessage(mail, mail.getRecipients(javax.mail.Message.RecipientType.TO));
-                // transport.sendMessage(mail, mail.getAllRecipients());
-                transport.close();
-                System.out.println("Correo enviado");
-            } catch (AddressException e) {
-                System.out.println("error en enviar correo: " + e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }*/
-
-        @FXML
-        void cancelar() {
+    void cancelar() {
             System.out.println("click en  Cancelar");
             System.exit(WITDH);
-        }
+    }
 
-        public void alert(String msj) {
+    @FXML  public void alert(String msj) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
-            alert.setTitle("ALERT");
+            alert.setTitle("Mensaje");
             alert.setContentText(msj);
             alert.showAndWait();
         }

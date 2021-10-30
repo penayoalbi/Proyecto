@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="915.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.clientesController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #BFC9CA;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.clientesController">
    <children>
       <Label layoutX="348.0" prefHeight="35.0" prefWidth="176.0" text="Administración de clientes" textFill="#5e36ff">
          <font>
@@ -15,21 +16,21 @@
       <Label layoutX="26.0" layoutY="137.0" text="Documento" />
       <Label layoutX="36.0" layoutY="176.0" text="Nombre" />
       <Label layoutX="37.0" layoutY="211.0" text="Apellido" />
-      <Label layoutX="336.0" layoutY="56.0" text="Correo" />
-      <Label layoutX="323.0" layoutY="96.0" text="Teléfono" />
-      <Label layoutX="321.0" layoutY="137.0" text="Dirección" />
-      <Label layoutX="27.0" layoutY="272.0" text="Documento" />
-      <ComboBox fx:id="cmbTipoDocumento" layoutX="106.0" layoutY="91.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtDocumento" layoutX="106.0" layoutY="132.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtNombre" layoutX="106.0" layoutY="171.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtApellido" layoutX="106.0" layoutY="206.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtCorreo" layoutX="392.0" layoutY="51.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtTelefono" layoutX="392.0" layoutY="91.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtClienteID" layoutX="106.0" layoutY="51.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtBuscar" layoutX="106.0" layoutY="267.0" prefHeight="29.0" prefWidth="394.0" />
-      <Button fx:id="btnBuscar" layoutX="509.0" layoutY="267.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="105.0" text="Buscar" textFill="#5a36ff" />
-      <TextField fx:id="txtDireccion" layoutX="392.0" layoutY="132.0" prefHeight="29.0" prefWidth="176.0" />
-      <TableView fx:id="tablaCliente" layoutX="42.0" layoutY="334.0" prefHeight="239.0" prefWidth="841.0">
+      <Label layoutX="356.0" layoutY="56.0" text="Correo" />
+      <Label layoutX="351.0" layoutY="96.0" text="Teléfono" />
+      <Label layoutX="356.0" layoutY="137.0" text="Dirección" />
+      <Label layoutX="27.0" layoutY="272.0" prefHeight="35.0" prefWidth="68.0" text="Nombre" />
+      <ComboBox fx:id="cmbTipoDocumento" layoutX="106.0" layoutY="91.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtDocumento" layoutX="106.0" layoutY="132.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtNombre" layoutX="106.0" layoutY="171.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtApellido" layoutX="106.0" layoutY="206.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtCorreo" layoutX="425.0" layoutY="51.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtTelefono" layoutX="425.0" layoutY="91.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtClienteID" layoutX="106.0" layoutY="51.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtBuscar" layoutX="106.0" layoutY="267.0" prefHeight="45.0" prefWidth="394.0" />
+      <Button fx:id="btnBuscar" layoutX="516.0" layoutY="266.0" mnemonicParsing="false" onAction="#Buscar" prefHeight="45.0" prefWidth="138.0" text="Buscar" textFill="#5a36ff" />
+      <TextField fx:id="txtDireccion" layoutX="425.0" layoutY="132.0" prefHeight="29.0" prefWidth="216.0" />
+      <TableView fx:id="tablaCliente" layoutX="42.0" layoutY="334.0" prefHeight="378.0" prefWidth="841.0">
         <columns>
             <TableColumn fx:id="colClienteID" prefWidth="67.0" text="Id Cliente" />
             <TableColumn fx:id="colTipoDocumento" prefWidth="102.0" text="Tipo Dcumento" />
@@ -43,14 +44,20 @@
             <TableColumn fx:id="colLocalidad" prefWidth="91.0" text="Localidad" />
         </columns>
       </TableView>
-      <Button fx:id="btnListar" layoutX="625.0" layoutY="51.0" mnemonicParsing="false" onAction="#ListarCliente" prefHeight="29.0" prefWidth="105.0" text="Listar" textFill="#ff3353" />
-      <Button fx:id="btnModificar" layoutX="625.0" layoutY="91.0" mnemonicParsing="false" onAction="#Modificar" prefHeight="29.0" prefWidth="105.0" text="Modificar" textFill="#ff6936" />
-      <Button fx:id="btnNuevo" layoutX="625.0" layoutY="132.0" mnemonicParsing="false" onAction="#Nuevo" prefHeight="29.0" prefWidth="105.0" text="Nuevo" textFill="#36ff5b" />
-      <Button fx:id="btnGuardar" layoutX="625.0" layoutY="171.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="29.0" prefWidth="105.0" text="Guardar" textFill="#5e36ff" />
-      <Button fx:id="btnBorrar" layoutX="625.0" layoutY="206.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="29.0" prefWidth="105.0" text="Borrar" textFill="#ff3636" />
-      <TextField fx:id="txtProvincia" layoutX="392.0" layoutY="171.0" prefHeight="29.0" prefWidth="176.0" />
-      <TextField fx:id="txtLocalidad" layoutX="392.0" layoutY="206.0" prefHeight="29.0" prefWidth="176.0" />
-      <Label layoutX="321.0" layoutY="176.0" text="Provincia" />
-      <Label layoutX="321.0" layoutY="211.0" text="Localidad" />
+      <Button fx:id="btnListar" layoutX="668.0" layoutY="43.0" mnemonicParsing="false" onAction="#ListarCliente" prefHeight="45.0" prefWidth="161.0" text="Listar" textFill="#ff3353" />
+      <Button fx:id="btnModificar" layoutX="668.0" layoutY="93.0" mnemonicParsing="false" onAction="#Modificar" prefHeight="45.0" prefWidth="161.0" text="Modificar" textFill="#ff6936" />
+      <Button fx:id="btnNuevo" layoutX="668.0" layoutY="139.0" mnemonicParsing="false" onAction="#Nuevo" prefHeight="45.0" prefWidth="161.0" text="Nuevo" textFill="#36ff5b" />
+      <Button fx:id="btnGuardar" layoutX="668.0" layoutY="184.0" mnemonicParsing="false" onAction="#Guardar" prefHeight="45.0" prefWidth="161.0" text="Guardar" textFill="#5e36ff" />
+      <Button fx:id="btnBorrar" layoutX="668.0" layoutY="235.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="45.0" prefWidth="161.0" text="Borrar" textFill="#ff3636" />
+      <TextField fx:id="txtProvincia" layoutX="425.0" layoutY="170.0" prefHeight="29.0" prefWidth="216.0" />
+      <TextField fx:id="txtLocalidad" layoutX="425.0" layoutY="206.0" prefHeight="29.0" prefWidth="216.0" />
+      <Label layoutX="357.0" layoutY="175.0" text="Provincia" />
+      <Label layoutX="356.0" layoutY="211.0" text="Localidad" />
+      <BorderPane layoutX="882.0" prefHeight="712.0" prefWidth="97.0">
+         <center>
+            <ScrollPane prefHeight="138.0" prefWidth="87.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+      <ImageView fitHeight="45.0" fitWidth="55.0" layoutX="668.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
