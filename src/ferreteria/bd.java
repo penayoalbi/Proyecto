@@ -19,7 +19,6 @@ public class bd {
         return rs;
     }
 
-    //INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `clave`) VALUES (NULL, 'ana', 'sample@mail.com', '1234');
     public void Guardar(String stringsql) {//guardar registo en bd
         try {
             Connection conn = DriverManager.getConnection(conbd);
@@ -32,7 +31,6 @@ public class bd {
         }
     }
 
-    //UPDATE `usuarios` SET `clave` = 'lalo123a4' WHERE `usuarios`.`id` = 2
     public void modificardatos(String stringsql) {
         try {
             Connection conn = DriverManager.getConnection(conbd);
@@ -46,7 +44,7 @@ public class bd {
     //delete
     public static int eliminar(int item)
     {
-        try {// "DELETE FROM `usuarios` WHERE `usuarios`.`usuarioID` = 3"?
+        try {
             Connection conn = DriverManager.getConnection(conbd);
             String sentencia= "DELETE FROM `usuarios` WHERE `usuarios`.`usuarioID` = ? ";
             PreparedStatement ps = conn.prepareStatement(sentencia);
@@ -55,6 +53,18 @@ public class bd {
         }catch (SQLException e){
             System.out.println("Error"+e.getMessage());
             return 0;
+        }
+    }
+    //buscar coincidencia
+    public Boolean buscarIdex(String sql){
+        try{
+            Connection conn = DriverManager.getConnection(conbd);
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            return true;
+        }catch (SQLException e){
+            System.out.println("ERROR: "+e.getMessage());
+            return false;
         }
     }
 }

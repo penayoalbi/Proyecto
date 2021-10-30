@@ -17,6 +17,27 @@ public class PrincipalController {
     @FXML private Button btnUsuario;
     @FXML private Button btnSalir;
     @FXML private Button btnCliente;
+    @FXML private Button btnProveedor;
+
+    @FXML
+    public void loginClose()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+            Controller login = loader.getController();//instan  class
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            stage.setOnCloseRequest(e-> login.controladorClose());// cuando se cierra ejecuta esto
+            //Stage myStage = (Stage) this.btnUsuario.getScene().getWindow();
+           // myStage.close();
+        }catch (IOException e){
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null,e);
+        }
+    }
 
     @FXML
     private void vistaUsuario(ActionEvent event){
@@ -61,6 +82,21 @@ public class PrincipalController {
     @FXML
     public void vistaProveedor(){
         System.out.println("click en vista proveedor");
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("proveedor.fxml"));
+            Parent root = loader.load();
+            proveedorController proveedor = loader.getController();
+            Scene scene = new Scene (root);
+            Stage stage= new Stage();
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e-> proveedor.controladorClose());
+
+            Stage myStage = (Stage) this.btnProveedor.getScene().getWindow();
+            myStage.close();
+        }catch (Exception e){
+            System.out.println("ERROR: "+e.getMessage());
+        }
     }
 
     @FXML
@@ -82,9 +118,23 @@ public class PrincipalController {
         }
     }
 
+    @FXML public void Ventas(){
+        System.out.println("click en ventas");
+    }
+    @FXML public void Compras(){
+        System.out.println("click en Compras");
+    }
+    @FXML public void Factura(){
+        System.out.println("click en Facrtura");
+    }
+
+    @FXML public void MediosDePagos(){
+        System.out.println("click en MediosDePagos");
+    }
+
     @FXML
     private void salir(ActionEvent event){
             System.out.println("click en  Cancelar");
             System.exit(WITDH);
-        }
+    }
 }
