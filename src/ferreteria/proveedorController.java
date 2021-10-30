@@ -35,7 +35,6 @@ public class proveedorController {
     @FXML private TableColumn <proveedor,String>colCorreo;
     @FXML private TableColumn <proveedor,String>colDireccion;
 
-
     bd base= new bd();
     validacion validar = new validacion();
     clientesController alert= new clientesController();
@@ -76,10 +75,15 @@ public class proveedorController {
         try{
             rs = base.Consultar("SELECT * FROM proveedor");
             while(rs.next()) {
-                oblist.add(new proveedor(rs.getInt("proveedorID"),rs.getString("tipoDocumento"),
-                        rs.getInt("documento"),rs.getString("nombre"),
-                        rs.getString("apellido"),rs.getString("telefono"),
-                        rs.getString("correo"),rs.getString("direccion")));
+                oblist.add(new proveedor(rs.getInt("proveedorID"),
+                        rs.getString("tipoDocumento"),
+                        rs.getInt("documento"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("telefono"),
+                        rs.getString("correo"),
+                        rs.getString("direccion"))
+                );
             }
             colProveedorID.setCellValueFactory(new PropertyValueFactory<>("proveedorID"));
             colTipoDocumento.setCellValueFactory(new PropertyValueFactory<>("tipoDocumento"));
@@ -114,9 +118,14 @@ public class proveedorController {
     @FXML public void Modificar(){
         txtProveedorID.setDisable(true);
         try{
-            if(!cmbTipoDocumento.equals("") | !txtDocumento.equals("") | !txtNombre.equals("") | !txtApellido.equals("")
-            | !txtTelefono.equals("") | !txtCorreo.equals("")| !txtDireccion.equals("")){
-                if (!(validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText()))) {
+            if(!cmbTipoDocumento.equals("") | !txtDocumento.equals("") |
+                    !txtNombre.equals("") |   !txtApellido.equals("") |
+                    !txtTelefono.equals("") | !txtCorreo.equals("")|
+                    !txtDireccion.equals(""))
+            {
+                if (!(validar.validarNumero(txtDocumento.getText())
+                        && validar.validarNumero(txtTelefono.getText())))
+                {
                     System.out.println("Error: los campos documento y telefono deben ser númericos.");
                 } else {
                     if(!validar.validarEmail(txtCorreo.getText())){
@@ -162,13 +171,13 @@ public class proveedorController {
         System.out.println("click en borrar");
           try{
             int item = tablaProveedor.getSelectionModel().getSelectedItem().getProveedorID();
-          //  String deshFk="SET GLOBAL FOREIGN_KEY_CHECKS=0";
-          //  base.Consultar(deshFk);//deshabilitar el Fk
+            String deshFk = "SET GLOBAL FOREIGN_KEY_CHECKS=0 ";//deshabilitar FK
+            base.Consultar(deshFk);//deshabilitar el Fk
             String eliminar = "DELETE FROM proveedor WHERE proveedorID ='"+item+"'";
             if(alert.confirmar()){
                 if(base.buscarIdex(eliminar)){
                     msj.alert("Se elimino con exito: id eliminado:  "+ item);
-                    String habFk="SET GLOBAL FOREIGN_KEY_CHECKS=1";
+                    String habFk="SET GLOBAL FOREIGN_KEY_CHECKS=1";//Habilitar FK
                     base.Consultar(habFk);
                     tablaProveedor.refresh();
                 }
@@ -181,21 +190,31 @@ public class proveedorController {
     @FXML public void Guardar(){
         txtProveedorID.setDisable(true);
         try{
-            if(!cmbTipoDocumento.equals("") | !txtDocumento.equals("") | !txtNombre.equals("") | !txtApellido.equals("")
-                    | !txtTelefono.equals("") | !txtCorreo.equals("")| !txtDireccion.equals("")){
-                if (!(validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText()))) {
+            if(!cmbTipoDocumento.equals("") | !txtDocumento.equals("")
+                    | !txtNombre.equals("") | !txtApellido.equals("")
+                    | !txtTelefono.equals("") | !txtCorreo.equals("")
+                    | !txtDireccion.equals(""))
+            {
+                if (!(validar.validarNumero(txtDocumento.getText())
+                        && validar.validarNumero(txtTelefono.getText())))
+                {
                     System.out.println("Error: los campos documento y telefono deben ser númericos.");
                 } else {
-                    if(!validar.validarEmail(txtCorreo.getText())){
+                    if(!validar.validarEmail(txtCorreo.getText()))
+                    {
                         System.out.println("Error en el campo correo");
                     }else{
                         if(txtDocumento.getText().length()==8){
                             if(alert.confirmar()){
                                 String update = "INSERT INTO proveedor (tipoDocumento, documento, nombre, apellido, " +
-                                        "telefono, correo, direccion) VALUES ('"+cmbTipoDocumento.getValue()+ "','"
-                                        +txtDocumento.getText()+"','" +txtNombre.getText()+"','"
-                                        +txtApellido.getText()+"','" +txtTelefono.getText()+"','"
-                                        +txtCorreo.getText()+"','" +txtDireccion.getText()+"')";
+                                        "telefono, correo, direccion) VALUES ('"
+                                        +cmbTipoDocumento.getValue()+ "','"
+                                        +txtDocumento.getText()+"','"
+                                        +txtNombre.getText()+"','"
+                                        +txtApellido.getText()+"','"
+                                        +txtTelefono.getText()+"','"
+                                        +txtCorreo.getText()+"','"
+                                        +txtDireccion.getText()+"')";
                                 base.Guardar(update);
                                 limpiarGrilla();
                                 tablaProveedor.refresh();
