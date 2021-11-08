@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="vistaPrincipal" prefHeight="502.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.PrincipalController">
+<AnchorPane fx:id="vistaPrincipal" prefHeight="502.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.PrincipalController">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: D5F5E3;">
          <right>
-            <Pane prefHeight="500.0" prefWidth="544.0" style="-fx-background-color: #AFEEEE;" BorderPane.alignment="CENTER">
+            <Pane prefHeight="500.0" prefWidth="545.0" style="-fx-background-color: #AFEEEE;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnVentas" layoutX="24.0" layoutY="61.0" mnemonicParsing="false" onAction="#Ventas" prefHeight="79.0" prefWidth="170.0" text="Ventas" />
                   <Button layoutX="292.0" layoutY="171.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="170.0" text="Button" />

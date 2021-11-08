@@ -5,7 +5,11 @@ module Proyecto {
     requires java.sql;
     requires mysql.connector.java;
     requires mail;
-    requires java.rmi;//esto no es necesario
+    requires java.rmi;
+    requires kernel;
+    requires pdfa;
+    requires pdftest;
+    requires layout;
 
     opens ferreteria;
     opens controllerPersona;

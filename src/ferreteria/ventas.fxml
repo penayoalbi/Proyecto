@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ferreteria.ventasController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.ventasController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="900.0">
+         <center>
+            <Pane prefHeight="560.0" prefWidth="866.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView layoutX="67.0" layoutY="293.0" prefHeight="218.0" prefWidth="764.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="64.0" layoutY="533.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="117.0" text="Cancelar" />
+                  <Button fx:id="btnGenerarFactura" layoutX="204.0" layoutY="533.0" mnemonicParsing="false" onAction="#generarFacturar" prefHeight="29.0" prefWidth="117.0" text="Generar" />
+                  <Label layoutX="505.0" layoutY="534.0" prefHeight="28.0" prefWidth="75.0" text="Monto Total:" />
+                  <TextField layoutX="603.0" layoutY="534.0" />
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>
