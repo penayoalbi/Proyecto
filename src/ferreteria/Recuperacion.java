@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
     private static final int WITDH = 0;
@@ -46,7 +48,7 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
             stage.show();
            // stage.setOnCloseRequest(e-> controladorClose());// cuando se cierra debe ejecutar esto
         }catch (IOException e){
-           // Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null,e);
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null,e);
         }
     }
 
@@ -90,7 +92,7 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
                     alert.alert("ÉXITO!");
                   //  System.out.println("nuevo: "+txtNuevaContraseña.getText());
                     limpiarCeldas();
-                    controladorClose();
+                    //controladorClose();
                 }else{
                     alert.alert("ERROR: las claves deben coincidir.");
                     limpiarCeldas();
@@ -132,7 +134,7 @@ public class Recuperacion<activation, _JAVA_OPTIONS, modules, add> {
 
     @FXML
     public void limpiarCeldas(){
-       // txtValidador.setText(null);
+        txtValidador.setText(null);
         txtNuevaContraseña.setText(null);
         txtRepetirContraseña.setText(null);
     }

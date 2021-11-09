@@ -27,6 +27,7 @@ public class usuarioController {
     @FXML private TableColumn <usuario,String>colNombre;
     @FXML private TableColumn <usuario,String>colApellido;
     @FXML private TableColumn <usuario,String>colCorreo;
+    @FXML private TableColumn <usuario,String>colUsuario;
     @FXML private TableColumn <usuario,String>colClave;
     @FXML private TableColumn <usuario,String>colCargo;
     @FXML private TableColumn <usuario,String>colTelefono;
@@ -36,7 +37,7 @@ public class usuarioController {
     @FXML private TextField txtDocumento;
     @FXML private TextField txtNombre;
     @FXML private TextField txtApellido;
-    @FXML private TextField txtTelefono;
+    @FXML private TextField txtTelefono, txtUsuario;
     @FXML private TextField txtCorreo;
     @FXML private TextField txtDomicilio;
     @FXML private TextField txtClave;
@@ -48,6 +49,7 @@ public class usuarioController {
     clientesController event = new clientesController();
     bd newbd= new bd();//llamo a la clase de conexión a base de datos
     validacion validar = new validacion();
+    Alerts alertas = new Alerts();
 
     ObservableList<usuario> oblist = FXCollections.observableArrayList();//lista observable
 
@@ -61,7 +63,7 @@ public class usuarioController {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-            stage.setOnCloseRequest(e -> controladorClose());// cuando se cierra debe ejecutar esto
+            stage.setOnCloseRequest(e ->  vistaPrincipal.loginClose());// cuando se cierra debe ejecutar esto
             Stage myStage = (Stage) this.principal.getScene().getWindow();//para cerrar ventana, volviendo a pantalla principal
             myStage.close();
         } catch (IOException e) {
@@ -105,15 +107,18 @@ public class usuarioController {
           //  tablaUsuario.getItems().clear();
             bd base = new bd();
             ResultSet rs;
-            rs = base.Consultar("SELECT * FROM usuarios");
+            rs = base.Consultar("SELECT `usuarioID`, `tipoDocumento`, `documento`, `nombre`, `apellido`, `correo`," +
+                    " `usuario`, `clave`, `cargo`, `telefono`, `estado`, `domicilio` FROM `usuarios`");
             while (rs.next()) {
-                oblist.add(new usuario(rs.getInt("usuarioID"),
+                oblist.add(new usuario (rs.getInt("usuarioID"),
                         rs.getString("tipoDocumento"),
-                        rs.getString("documento"), rs.getString("nombre"),
+                        rs.getInt("documento"), rs.getString("nombre"),
                         rs.getString("apellido"), rs.getString("correo"),
-                        rs.getString("clave"), rs.getString("cargo"),
-                        rs.getString("telefono"), rs.getString("estado"),
-                        rs.getString("domicilio")));
+                        rs.getString("usuario"),rs.getString("clave"),
+                        rs.getString("cargo"), rs.getInt("telefono"),
+                        rs.getString("estado"), rs.getString("domicilio")
+                       // , rs.getInt("claveGeneradaPor")
+                ));
             }
             colUsuarioID.setCellValueFactory(new PropertyValueFactory<>("usuarioID"));
             colTipoDocumento.setCellValueFactory(new PropertyValueFactory<>("tipoDocumento"));
@@ -121,7 +126,8 @@ public class usuarioController {
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             colApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
             colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
-            //colClave.setCellValueFactory(new PropertyValueFactory<>("clave"));
+            colClave.setCellValueFactory(new PropertyValueFactory<>("clave"));
+            colUsuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
             colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
             colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
             colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
@@ -130,6 +136,7 @@ public class usuarioController {
             tablaUsuario.refresh();
             //btnListar.setDisable(true);
         } catch (Exception e) {
+            alertas.mensajeError("error nulo");
             System.out.println("Error: de nulo " + e.getMessage());
         }
     }
@@ -182,18 +189,21 @@ public class usuarioController {
                                 && txtApellido.getText().length()<=30){
                             if(event.confirmar()){
                                 String claveEncriptada = Encriptar(txtClave.getText());
+                                int claveGeneraPor = 0;
                                 String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido," +
-                                        " correo, clave, cargo, telefono, estado, domicilio) " +
+                                        " correo, usuario, clave, cargo, telefono, estado, domicilio, claveGeneradaPor) " +
                                         "VALUES ('"+cmbDocumento.getValue()+
                                         "','"+txtDocumento.getText()+
                                         "','"+txtNombre.getText()+
                                         "','"+txtApellido.getText() +
                                         "','" +txtCorreo.getText()+
+                                        "','"+txtUsuario.getText()+
                                         "','" +claveEncriptada+
                                         "','" +cmbCargo.getValue()+
                                         "','" +txtTelefono.getText()+
                                         "','"+cmbEstado.getValue()+
-                                        "','" +txtDomicilio.getText()+"')";
+                                        "','" +txtDomicilio.getText()+
+                                        "','"+claveGeneraPor+"')";
                                 System.out.println("tipo docu: "+cmbDocumento.getValue());
                                 newbd.Guardar(insert);
                                 alert.alert("Se guardó con exito!");
@@ -273,7 +283,9 @@ public class usuarioController {
     }
 
     @FXML
-    public void cancelar (){}
+    public void cancelar (){
+        limpiarSeldas();
+    }
 
     @FXML
     public void limpiarSeldas(){

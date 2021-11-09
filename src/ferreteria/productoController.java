@@ -41,7 +41,7 @@ public class productoController {
     private Button btnPruebaDesencriptar;
 
     @FXML
-    private TableColumn<Producto, Integer> colProductoID;
+    private TableColumn<Producto,Integer> colProductoID;
     @FXML
     private TableColumn<Producto, String> colDescripcion;
     @FXML

@@ -3,19 +3,21 @@ package ferreteria;
 public class usuario {
     private Integer usuarioID;
     private String tipoDocumento;
-    private String documento;
+    private Integer documento;
     private String nombre;
     private String apellido;
     private String correo;
+    private String usuario;
     private String clave;
     private String cargo;
-    private String telefono;
+    private Integer telefono;
     private String estado;
     private String domicilio;
+  //  private  Integer claveGeneradaPor;
 
     //construct
-    public usuario(Integer usuarioID, String tipoDocumento, String documento, String nombre,
-                   String apellido, String correo, String clave, String cargo, String telefono,
+    public usuario(Integer usuarioID, String tipoDocumento, Integer documento, String nombre,
+                   String apellido, String usuario, String correo, String clave, String cargo, Integer telefono,
                    String estado, String domicilio)
     {
         this.usuarioID=usuarioID;
@@ -23,12 +25,34 @@ public class usuario {
         this.documento=documento;
         this.nombre=nombre;
         this.apellido=apellido;
+        this.usuario=usuario;
         this.correo=correo;
         this.clave=clave;
         this.cargo=cargo;
         this.telefono=telefono;
         this.estado=estado;
         this.domicilio=domicilio;
+       // this.claveGeneradaPor = claveGeneradaPor;
+    }
+
+    public void listar(int usuarioID,
+                   String tipoDocumento, Integer documento,
+                   String nombre, String apellido, String correo,
+                   String usuario, String cargo, Integer telefono,
+                   String estado, String domicilio)
+    {
+        this.usuarioID=usuarioID;
+        this.tipoDocumento=tipoDocumento;
+        this.documento=documento;
+        this.nombre=nombre;
+        this.apellido=apellido;
+        this.usuario=usuario;
+        this.correo=correo;
+        this.cargo=cargo;
+        this.telefono=telefono;
+        this.estado=estado;
+        this.domicilio=domicilio;
+
     }
 
     public Integer getUsuarioID() {
@@ -47,11 +71,11 @@ public class usuario {
         this.tipoDocumento = tipoDocumento;
     }
 
-    public String getDocumento() {
+    public Integer getDocumento() {
         return documento;
     }
 
-    public void setDocumento(String documento) {
+    public void setDocumento(Integer documento) {
         this.documento = documento;
     }
 
@@ -71,11 +95,11 @@ public class usuario {
         this.apellido = apellido;
     }
 
-    public String getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 
@@ -91,8 +115,17 @@ public class usuario {
         return domicilio;
     }
 
+
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getClave() {
@@ -118,4 +151,14 @@ public class usuario {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+/*
+    public Integer getGeneradoPor() {
+        return claveGeneradaPor;
+    }
+
+    public void setGeneradoPor(Integer claveGeneradaPor) {
+        this.claveGeneradaPor = claveGeneradaPor;
+    }
+
+ */
 }
