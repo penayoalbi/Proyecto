@@ -9,11 +9,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller {
     private static final int WITDH = 0;
@@ -26,58 +31,125 @@ public class Controller {
     @FXML
     private Button btnSalir;
     @FXML
-    private AnchorPane Home, page2, page3, page4;
-    @FXML
-    private Hyperlink recuperacion;
+    private Hyperlink recuperacion, linkGenerarClave;
+    //generar panel de generar clave si es la primera vez que inicia sesion
+    @FXML private Pane paneGenerarClave;
+    @FXML private Button btnGenerarClave;
+    @FXML private TextField txtGenerarClave,txtClaveGenerada;
+
 
     bd base = new bd();//instancia de bd
+    Alerts alertas = new Alerts();
+
+    //no es objet, pero sirve
+    String usuario = "";
+    String clave = "";
+    String estado = "";
+    int claveGeneradaPor = 0;
+    int id = 0;
+
+    @FXML public void initialize(){
+       // iconos();
+        linkGenerarClave.setDisable(true);
+        paneGenerarClave.setVisible(false);
+    }
 
     @FXML
     void ingresar(ActionEvent event)
     {
-        String usuario = "";
-        String clave = "";
-        String estado = "";
+        linkGenerarClave.setDisable(false);
         System.out.println("Click en el boton ingresar");
-        try {
-            if (txtUsuario.getText().equals("") || txtClave.getText().equals("")) {
+        try
+        {
+            if (txtUsuario.getText().equals("") || txtClave.getText().equals(""))
+            {
                 alert("llene los campos de usuario y clave");
-            } else {
+            } else
+            {
                 ResultSet rs;
-                rs = base.Consultar("SELECT usuario, clave, estado FROM ferreteria.usuarios " +
+                rs = base.Consultar("SELECT usuarioID,usuario, clave, estado, claveGeneradaPor FROM ferreteria.usuarios " +
                         "WHERE usuario = '" + txtUsuario.getText() + "'");
-                while (rs.next()) {
+                while (rs.next())
+                {
                     usuario = rs.getString("usuario");
                     clave = rs.getString("clave");
                     estado = rs.getString("estado");
-                }
-                if (!txtUsuario.getText().equals(usuario)) {
-                    alert("USUARIO INCORRECTO");
-                } else {
-                    if (!txtClave.getText().equals(clave)) {
-                        alert("ERROR DE CONTRASEÑA");
-                    } else {
-                        if (!estado.equals("Habilitado")) {
-                            alert("USUARIO NO HABILITADO");
-                        } else {
-                            alert("Bienvenido");
+                    claveGeneradaPor =rs.getInt("claveGeneradaPor");
+                    id = rs.getInt("usuarioID");
 
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
-                            Parent root = loader.load();
-                            PrincipalController vistaPrincipal = loader.getController();//instancia  class
-                            Scene scene = new Scene(root);
-                            Stage stage = new Stage();
-                            stage.setScene(scene);
-                            stage.show();
-                           // stage.setOnCloseRequest(e -> controladorClose());
-                          //  Stage myStage = (Stage) this.btnIngresar.getScene().getWindow();
-                            //myStage.close();
+                }
+                if (!txtUsuario.getText().equals(usuario))
+                {
+                    alert("USUARIO INCORRECTO");
+                } else
+                {
+                    if (claveGeneradaPor == 1) {
+
+                        mostrarPane();//llama al panel para generar clave por usuario
+                        //txtClave.setDisable(true);
+                        if (txtGenerarClave.getText().equals("") || txtClaveGenerada.getText().equals("")) {
+                            System.out.println("llene los campos");
+                        } else {
+                            if (txtClaveGenerada.getText().equals(txtGenerarClave.getText())) {
+                                System.out.println("los campos no coinciden");
+                            } else {
+                                generarClave();
+                                alertas.mensajeInfo("se genero la clave. Inicie sesion");
+                                //txtClave.setDisable(false);
+                                paneGenerarClave.setVisible(false);
+                                System.out.println("error en generar clave");
+                            }
+                        }
+                    } else {
+
+                        if (!txtClave.getText().equals(clave)) {
+                            alertas.mensajeError("ERROR DE CONTRASEÑA");
+                        } else {
+                            if (!estado.equals("Habilitado")) {
+                                alertas.mensajeError("USUARIO NO HABILITADO");
+                            } else {
+                                alert("Bienvenido");
+
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+                                Parent root = loader.load();
+                                PrincipalController vistaPrincipal = loader.getController();//instancia  class
+                                Scene scene = new Scene(root);
+                                Stage stage = new Stage();
+                                stage.setScene(scene);
+                                stage.show();
+                               // stage.setOnCloseRequest(e -> controladorClose());
+                                stage.setOnCloseRequest(e -> vistaPrincipal.loginClose());
+                                Stage myStage = (Stage) this.btnIngresar.getScene().getWindow();
+                                myStage.close();
+                            }
                         }
                     }
                 }
             }
+          //  }
         }catch (Exception e){
             System.out.println("Error. "+e.getMessage());
+        }
+    }
+
+    @FXML public void mostrarPane(){
+        System.out.println("mostrar pane");
+        paneGenerarClave.setVisible(true);
+
+    }
+
+     @FXML
+     public void generarClave(){
+        System.out.println("click en generar clave");
+        //UPDATE `usuarios` SET `clave` = '1234', `claveGeneradaPor` = '1' WHERE `usuarios`.`usuarioID` = 10
+        if(txtGenerarClave.getText().equals(txtClaveGenerada.getText())){
+            String sql = "UPDATE `usuarios` SET `clave` = '"+txtGenerarClave.getText()+"',`claveGeneradaPor` = 0" +
+                    " WHERE `usuarios`.`usuarioID` = '"+id+"'";
+            base.modificardatos(sql);
+            System.out.println("se genero clave por usuario en el "+id);
+            paneGenerarClave.setVisible(false);//cierro pane
+        }else {
+            alertas.mensajeError("los campos deben coincidir");
         }
     }
 
@@ -93,8 +165,8 @@ public class Controller {
             stage.show();
             //stage.setOnCloseRequest(e -> controladorClose());// cuando se cierra debe ejecutar esto
         } catch (IOException e) {
-          //  Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println("Error.");
+            System.out.println("Error."+e.getMessage());
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -116,15 +188,28 @@ public class Controller {
 
     @FXML
     void cancelar() {
-            System.out.println("click en  Cancelar");
-            System.exit(WITDH);
+        System.out.println("click en  Cancelar");
+        System.exit(WITDH);
     }
 
-    @FXML  public void alert(String msj) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setTitle("Mensaje");
-            alert.setContentText(msj);
-            alert.showAndWait();
+    @FXML
+    public void alert(String msj) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Mensaje");
+        alert.setContentText(msj);
+        alert.showAndWait();
+    }
+
+        //agregar funcionalidad
+    @FXML public  void iconos(){
+        try{
+            URL url = getClass().getResource("/img/login.png");
+            Image image = new Image(url.toString(),24,24,false,true);
+            btnIngresar.setGraphic(new ImageView(image));
+        }catch (Exception e){
+            System.out.println("error en iconos"+e.getMessage());
         }
+    }
+
 }

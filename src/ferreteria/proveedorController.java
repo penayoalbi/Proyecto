@@ -39,6 +39,8 @@ public class proveedorController {
     validacion validar = new validacion();
     clientesController alert= new clientesController();
     Controller msj = new Controller();
+    Alerts alertas = new Alerts();
+
     ObservableList<proveedor> oblist = FXCollections.observableArrayList();//lista observable
 
     @FXML
@@ -60,6 +62,8 @@ public class proveedorController {
     @FXML
     public void initialize() {
         eventoClick();
+        txtProveedorID.setDisable(true);
+        Listar();
         List<String> TipoDocumento = new ArrayList<>();
         TipoDocumento.add("Documento Nacional de Identidad");
         TipoDocumento.add("Cédula de Identidad");
@@ -165,20 +169,22 @@ public class proveedorController {
 
     @FXML public void Nuevo(){
         limpiarCeldas();
+        txtProveedorID.setDisable(true);
+
     }
 
     @FXML public void Borrar(){
         System.out.println("click en borrar");
           try{
             int item = tablaProveedor.getSelectionModel().getSelectedItem().getProveedorID();
-            String deshFk = "SET GLOBAL FOREIGN_KEY_CHECKS=0 ";//deshabilitar FK
-            base.Consultar(deshFk);//deshabilitar el Fk
-            String eliminar = "DELETE FROM proveedor WHERE proveedorID ='"+item+"'";
+           // String deshFk = "SET GLOBAL FOREIGN_KEY_CHECKS=0 ";//deshabilitar FK
+           // base.Consultar(deshFk);//deshabilitar el Fk
+            String eliminar = "Update proveedor set estado = 0 WHERE proveedorID ='"+item+"'";
             if(alert.confirmar()){
                 if(base.buscarIdex(eliminar)){
-                    msj.alert("Se elimino con exito: id eliminado:  "+ item);
-                    String habFk="SET GLOBAL FOREIGN_KEY_CHECKS=1";//Habilitar FK
-                    base.Consultar(habFk);
+                    alertas.mensajeInfo("Se dió de baja con exito: id eliminado:  "+ item);
+                 //   String habFk="SET GLOBAL FOREIGN_KEY_CHECKS=1";//Habilitar FK
+                    //base.Consultar(habFk);
                     tablaProveedor.refresh();
                 }
             }
@@ -188,7 +194,9 @@ public class proveedorController {
     }
 
     @FXML public void Guardar(){
+        //falta validar documento
         txtProveedorID.setDisable(true);
+        int estado =0;
         try{
             if(!cmbTipoDocumento.equals("") | !txtDocumento.equals("")
                     | !txtNombre.equals("") | !txtApellido.equals("")
@@ -198,39 +206,48 @@ public class proveedorController {
                 if (!(validar.validarNumero(txtDocumento.getText())
                         && validar.validarNumero(txtTelefono.getText())))
                 {
+                    alertas.mensajeError("los campos documento y telefono deben ser númericos.");
                     System.out.println("Error: los campos documento y telefono deben ser númericos.");
                 } else {
                     if(!validar.validarEmail(txtCorreo.getText()))
                     {
-                        System.out.println("Error en el campo correo");
+                        alertas.mensajeError("Error en el campo correo.");
+                        System.out.println("Error en el campo correo.");
                     }else{
-                        if(txtDocumento.getText().length()==8){
+                        if(txtDocumento.getText().length()>=5){
                             if(alert.confirmar()){
+                                estado =1;
                                 String update = "INSERT INTO proveedor (tipoDocumento, documento, nombre, apellido, " +
-                                        "telefono, correo, direccion) VALUES ('"
+                                        "telefono, correo, direccion, estado) VALUES ('"
                                         +cmbTipoDocumento.getValue()+ "','"
                                         +txtDocumento.getText()+"','"
                                         +txtNombre.getText()+"','"
                                         +txtApellido.getText()+"','"
                                         +txtTelefono.getText()+"','"
                                         +txtCorreo.getText()+"','"
-                                        +txtDireccion.getText()+"')";
+                                        +txtDireccion.getText()+"','"
+                                        +estado+"')";
                                 base.Guardar(update);
                                 limpiarGrilla();
                                 tablaProveedor.refresh();
+                                alertas.mensajeInfo("Se registro con exito!");
                             }else{
+                                alertas.mensajeInfo("Operación cancelada");
                                 System.out.println("Operacion cancelada");
                                 limpiarCeldas();
                             }
                         }else{
+                            alertas.mensajeError("Documento no válido.");
                             System.out.println("ERROR en el campo documento.");
                         }
                     }
                 }
             }else{
-                System.out.println("hay campos vacios");
+                alertas.mensajeError("Completar todos los campos");
+                System.out.println("Hay campos vacios");
             }
         }catch (Exception e){
+            alertas.mensajeInfo("Debe completar todos los compos");
             System.out.println("Error al registrar nuevo proveedor: "+e.getMessage());
         }
     }

@@ -10,6 +10,7 @@ public class proveedor
     private String telefono;
     private String correo;
     private String direccion;
+    //private Integer estado;// agregar esto
 
     public proveedor(Integer proveedorID, String tipoDocumento, Integer documento, String nombre,
                      String apellido, String telefono, String correo, String direccion) {

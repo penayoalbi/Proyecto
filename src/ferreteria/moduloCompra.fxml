@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="850.0" style="-fx-background-color: #D0DAE6;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.compraController">
+   <children>
+      <BorderPane layoutX="14.0" layoutY="14.0" prefHeight="567.0" prefWidth="821.0">
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F3EEF6;" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView layoutX="68.0" layoutY="274.0" prefHeight="240.0" prefWidth="686.0" style="-fx-background-color: #D0DAE6;">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn prefWidth="75.0" text="Column X" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="376.0" layoutY="55.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="71.0" text="Buscar" />
+                  <Button layoutX="469.0" layoutY="55.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="74.0" text="Nuevo" />
+                  <Label layoutX="68.0" layoutY="60.0" text="Codigo Producto" />
+                  <Label layoutX="117.0" layoutY="99.0" text="Nombre" />
+                  <Label layoutX="97.0" layoutY="141.0" text="Descripción" />
+                  <Label layoutX="115.0" layoutY="182.0" text="Cantidad" />
+                  <TextField layoutX="175.0" layoutY="53.0" />
+                  <TextField layoutX="175.0" layoutY="92.0" />
+                  <TextField layoutX="175.0" layoutY="134.0" />
+                  <TextField layoutX="175.0" layoutY="175.0" />
+                  <ComboBox layoutX="175.0" layoutY="211.0" prefHeight="29.0" prefWidth="161.0" />
+                  <Label layoutX="114.0" layoutY="218.0" text="Proveedor" />
+                  <Button layoutX="376.0" layoutY="92.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="71.0" text="Buscar" />
+                  <Button layoutX="404.0" layoutY="211.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="71.0" text="Button" />
+                  <Button layoutX="469.0" layoutY="92.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="74.0" text="Nuevo" />
+                  <ComboBox layoutX="568.0" layoutY="55.0" prefWidth="150.0" />
+                  <ChoiceBox layoutX="568.0" layoutY="92.0" prefWidth="150.0" />
+                  <ChoiceBox layoutX="557.0" layoutY="211.0" prefWidth="150.0" />
+                  <MenuButton layoutX="358.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </MenuButton>
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

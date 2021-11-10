@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -184,36 +185,40 @@ public class usuarioController {
                 if(validar.validarNumero(txtDocumento.getText()) && validar.validarNumero(txtTelefono.getText())
                         && validar.validarEmail(txtCorreo.getText())){
                     if (txtDocumento.getText().length()>=5){
-                        if(txtNombre.getText().length()>=3 && txtNombre.getText().length()<=30
-                                && txtApellido.getText().length()>=3
-                                && txtApellido.getText().length()<=30){
-                            if(event.confirmar()){
-                                String claveEncriptada = Encriptar(txtClave.getText());
-                                int claveGeneraPor = 0;
-                                String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido," +
-                                        " correo, usuario, clave, cargo, telefono, estado, domicilio, claveGeneradaPor) " +
-                                        "VALUES ('"+cmbDocumento.getValue()+
-                                        "','"+txtDocumento.getText()+
-                                        "','"+txtNombre.getText()+
-                                        "','"+txtApellido.getText() +
-                                        "','" +txtCorreo.getText()+
-                                        "','"+txtUsuario.getText()+
-                                        "','" +claveEncriptada+
-                                        "','" +cmbCargo.getValue()+
-                                        "','" +txtTelefono.getText()+
-                                        "','"+cmbEstado.getValue()+
-                                        "','" +txtDomicilio.getText()+
-                                        "','"+claveGeneraPor+"')";
-                                System.out.println("tipo docu: "+cmbDocumento.getValue());
-                                newbd.Guardar(insert);
-                                alert.alert("Se guardó con exito!");
-                                tablaUsuario.refresh();
-                            }else{
-                                System.out.println("Operacion cancelada");
-                                limpiarSeldas();
-                            }
+                        if(buscarCoincidencia(txtDocumento.getText())==1){
+                            alertas.mensajeInfo("El usuario ya esta registrado");
                         }else{
-                            System.out.println("ERROR: el campo de Nombre/Apellido no es valido");
+                            if(txtNombre.getText().length()>=3 && txtNombre.getText().length()<=30
+                                    && txtApellido.getText().length()>=3
+                                    && txtApellido.getText().length()<=30){
+                                if(event.confirmar()){
+                                    String claveEncriptada = Encriptar(txtClave.getText());
+                                    int claveGeneraPor = 0;
+                                    String insert = "INSERT INTO usuarios (tipoDocumento, documento, nombre, apellido," +
+                                            " correo, usuario, clave, cargo, telefono, estado, domicilio, claveGeneradaPor) " +
+                                            "VALUES ('"+cmbDocumento.getValue()+
+                                            "','"+txtDocumento.getText()+
+                                            "','"+txtNombre.getText()+
+                                            "','"+txtApellido.getText() +
+                                            "','" +txtCorreo.getText()+
+                                            "','"+txtUsuario.getText()+
+                                            "','" +claveEncriptada+
+                                            "','" +cmbCargo.getValue()+
+                                            "','" +txtTelefono.getText()+
+                                            "','"+cmbEstado.getValue()+
+                                            "','" +txtDomicilio.getText()+
+                                            "','"+claveGeneraPor+"')";
+                                    System.out.println("tipo docu: "+cmbDocumento.getValue());
+                                    newbd.Guardar(insert);
+                                    alert.alert("Se guardó con exito!");
+                                    tablaUsuario.refresh();
+                                }else{
+                                    System.out.println("Operacion cancelada");
+                                    limpiarSeldas();
+                                }
+                            }else{
+                                System.out.println("ERROR: el campo de Nombre/Apellido no es valido");
+                            }
                         }
                     }else{
                         System.out.println("ERROR: el campo documento no valido");
@@ -320,4 +325,26 @@ public class usuarioController {
         //System.out.println("texto desencriptado: " + Texto_desencriptado);
         return Texto_desencriptado;
     }
+
+    public int buscarCoincidencia(String docu){
+        ResultSet rs;
+        Integer documento = 0 ;
+        int valor = 0;
+        try{
+        String buscar = "select documento from usuarios where documento = '"+docu+"'";
+        rs=newbd.Consultar(buscar);
+        if(rs.next()){
+             documento = rs.getInt("documento");
+        }
+        if (documento>0){
+            return valor =1;
+        }else{
+            return valor=0;
+        }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return valor;
+    }
+
 }

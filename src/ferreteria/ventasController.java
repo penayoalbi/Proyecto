@@ -1,19 +1,146 @@
 package ferreteria;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class ventasController {
-    @FXML private Button btnGenerarFactura;
+    @FXML private Button btnEmitirFactura;
+    @FXML private Button btnCancelar;
+    @FXML private Button btnBuscarCliente;
+    @FXML private Button btnBuscarProducto;
+    @FXML private Button btnAddCliente;
+    @FXML private Button btnAddProducto;
+    @FXML private Button btnNuevaVenta;
+    @FXML private Button btnGenerarVenta;
+    @FXML private Button btnNuevoCliente;
+
+    @FXML private TextField txtDocumentoCliente;
+    @FXML private TextField txtProducto;
+    @FXML private TextField txtCantidad;
+    @FXML private TextField txtMontoTotal;
+
+    @FXML private ComboBox <clientes> cmbCliente;
+    @FXML private ComboBox <Producto>cmbProducto;
+    @FXML private ComboBox <usuario> cmbVendedor;
+
+    @FXML private TableView <ModelVentas>tablaVenta;
+    @FXML private TableColumn <ModelVentas,Integer>colCodVenta;
+    @FXML private TableColumn <ModelVentas,Integer>colCantidad;
+    @FXML private TableColumn <ModelVentas,DatePicker>colFecha;
+
+    //llamadas
+    bd base = new bd();
+    Alerts alertas = new Alerts();
 
 
-    @FXML public void cerrarVentana(){
+    ObservableList<ModelVentas> venta = FXCollections.observableArrayList();
+    ObservableList<Producto> obproductos = FXCollections.observableArrayList();
+    ObservableList<clientes> cbcliente = FXCollections.observableArrayList();
+    ObservableList<usuario> obusuario = FXCollections.observableArrayList();
+
+    ArrayList lista =new ArrayList();
+
+    public  void  initialize(){
+        iniciarComboBox();
+        btnBuscarCliente.setDisable(true);
+        txtDocumentoCliente.setDisable(true);
+    }
+
+    public void GenerarVenta(){
+        System.out.println("click en generar venta");
+        try{
+
+        }catch (Exception e){
+            System.out.println("error en crear venta"+e.getMessage());
+        }
 
     }
 
+    @FXML public void buscarCliente(){
+        String cliente;
+        ResultSet rs ;
+        String buscarCliente="Select clienteID, nombre, estado from clientes where docuemnto = '"+txtDocumentoCliente.getText()+"'";
+        try{
+            rs=base.Consultar(buscarCliente);
+            if(rs.next()){
+                cliente=rs.getString("nombre");
+            }else{
+                alertas.mensajeInfo("Cliente no existe. Click en nuevo para agregar");
+            }
+        }catch (Exception e){
+            System.out.println("error en buscar" + e.getMessage());
+        }
 
-    @FXML public void generarFacturar(){
+    }
+
+    public void iniciarComboBox(){
+        clientes Cli = new clientes();
+        cbcliente = Cli.getCliente();//viene del modelo
+        this.cmbCliente.setItems(cbcliente);
+
+    }
+    @FXML public void buscarProducto(){
+        Integer codProd;
+        String nombre;
+        Integer stock;
+        String descProd;
+        String filtrarProd;
+        ResultSet rs;
+
+        try{
+            filtrarProd= "Select productoID, nombre, stock , descripcion from productos where ";
+
+        }catch (Exception e){
+            System.out.println("error en buscar" + e.getMessage());
+        }
+    }
+    @FXML public void addCliente(){}
+    @FXML public void addProducto(){}
+    @FXML public void addVendedor(){}
+    @FXML public void EmitirBoleta(){
+        try{
+
+        }catch (Exception e){
+            System.out.println("error en buscar" + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void cerrarVentana() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+            Parent root = loader.load();
+            PrincipalController vistaPrincipal = loader.getController();//instancia controller class
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e -> vistaPrincipal.loginClose());// cuando se cierra debe ejecutar esto
+            //Stage myStage = (Stage) this.principal.getScene().getWindow();//para cerrar ventana, volviendo a pantalla principal
+            //  myStage.close();
+        } catch (IOException e) {
+            Logger.getLogger(Recuperacion.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+
+    @FXML public void generarFacturar () {
         GenerarReportes newReportes = new GenerarReportes();
         newReportes.CrearFactura();
     }
+
+
 }

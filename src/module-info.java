@@ -10,6 +10,7 @@ module Proyecto {
     requires pdfa;
     requires pdftest;
     requires layout;
+    requires io;
 
     opens ferreteria;
     opens controllerPersona;

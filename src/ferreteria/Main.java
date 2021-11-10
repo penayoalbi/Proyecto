@@ -16,13 +16,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setTitle("Inicio de sesión");
-        primaryStage.setScene(new Scene(root, 400, 275));
+        primaryStage.setScene(new Scene(root, 450, 300));
         primaryStage.show();
     }
     @Override
-    public void stop(){
-
-    }
+    public void stop(){ }
 
     public static void main(String[] args) {
         launch(args);

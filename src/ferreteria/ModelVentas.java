@@ -7,13 +7,13 @@ public class ModelVentas {
     private Integer codigoVenta;
     private Integer detalleVenta;//coddetalleventa
     private Integer vendedorID;
+    private Integer cantidad;
     private Double monto;
     private Date fecha;
     private Integer estadoVenta;
 
+
     //construct
-
-
     public ModelVentas(Integer ventaID, Integer codigoVenta,
                        Integer detalleVenta, Integer vendedorID,
                        Double monto, Date fecha, Integer estadoVenta)
@@ -26,8 +26,17 @@ public class ModelVentas {
         this.fecha = fecha;
         this.estadoVenta = estadoVenta;
     }
-    //setter and getter
 
+    public ModelVentas(Integer codigoVenta, Integer detalleVenta, Integer cantidad, Double monto, Date fecha) {
+        this.codigoVenta = codigoVenta;
+        this.detalleVenta = detalleVenta;
+        this.cantidad = cantidad;
+        this.monto = monto;
+        this.fecha = fecha;
+
+    }
+
+    //setter and getter
     public Integer getVentaID() {
         return ventaID;
     }

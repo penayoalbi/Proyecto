@@ -15,7 +15,7 @@ public class Alerts {
     }
     @FXML public void mensajeError(String string){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText("Error");
+        alert.setHeaderText("ERROR");
         alert.setTitle("Mensaje");
         alert.setContentText(string);
         alert.showAndWait();

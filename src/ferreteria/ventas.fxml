@@ -2,23 +2,72 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.ventasController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #D3E7DC;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.ventasController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="900.0">
          <center>
             <Pane prefHeight="560.0" prefWidth="866.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView layoutX="67.0" layoutY="293.0" prefHeight="218.0" prefWidth="764.0">
+                  <TableView fx:id="tablaVenta" layoutX="67.0" layoutY="219.0" prefHeight="263.0" prefWidth="764.0" style="-fx-background-color: #B5BEF8;">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="colCodVenta" prefWidth="75.0" text="Cód Venta" />
+                      <TableColumn fx:id="colCliente" prefWidth="75.0" text="Cliente" />
+                        <TableColumn fx:id="colDocumento" prefWidth="75.0" text="Documento" />
+                        <TableColumn fx:id="colProducto" prefWidth="75.0" text="Producto" />
+                        <TableColumn fx:id="colDescripcion" prefWidth="75.0" text="Descrip" />
+                        <TableColumn fx:id="colCantidad" prefWidth="75.0" text="Cantidad" />
+                        <TableColumn fx:id="colPrecio" prefWidth="75.0" text="Precio" />
+                        <TableColumn fx:id="colVendedor" prefWidth="75.0" text="Vendedor" />
+                        <TableColumn fx:id="colFecha" prefWidth="75.0" text="Fecha" />
                     </columns>
                   </TableView>
-                  <Button layoutX="64.0" layoutY="533.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="117.0" text="Cancelar" />
-                  <Button fx:id="btnGenerarFactura" layoutX="204.0" layoutY="533.0" mnemonicParsing="false" onAction="#generarFacturar" prefHeight="29.0" prefWidth="117.0" text="Generar" />
-                  <Label layoutX="505.0" layoutY="534.0" prefHeight="28.0" prefWidth="75.0" text="Monto Total:" />
-                  <TextField layoutX="603.0" layoutY="534.0" />
+                  <Button fx:id="btnCancelar" layoutX="64.0" layoutY="523.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="112.0" text="Cancelar" textFill="#e30909">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button fx:id="btnGenerarVenta" layoutX="191.0" layoutY="523.0" mnemonicParsing="false" onAction="#generarFacturar" prefHeight="34.0" prefWidth="108.0" text="Generar Venta" textFill="#11e446">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Button>
+                  <Label layoutX="559.0" layoutY="481.0" prefHeight="38.0" prefWidth="94.0" text="Monto Total:" />
+                  <TextField fx:id="txtMontoTotal" layoutX="669.0" layoutY="488.0" prefHeight="30.0" prefWidth="162.0" promptText="\$" />
+                  <Label layoutX="58.0" layoutY="40.0" prefHeight="31.0" prefWidth="60.0" text="ID Cliente" />
+                  <Label layoutX="64.0" layoutY="78.0" prefHeight="31.0" prefWidth="67.0" text="Producto" />
+                  <Label layoutX="64.0" layoutY="119.0" prefHeight="31.0" prefWidth="60.0" text="Cantidad" />
+                  <Label layoutX="62.0" layoutY="157.0" prefHeight="31.0" prefWidth="58.0" text="Label" />
+                  <Button fx:id="btnBuscarCliente" layoutX="313.0" layoutY="41.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" text="Buscar" />
+                  <Button fx:id="btnNuevoCliente" layoutX="412.0" layoutY="41.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="83.0" text="Nuevo" />
+                  <Button fx:id="btnBuscarProducto" layoutX="312.0" layoutY="79.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="80.0" text="Buscar" />
+                  <ComboBox fx:id="cmbProducto" layoutX="414.0" layoutY="79.0" prefHeight="29.0" prefWidth="318.0" />
+                  <TextField fx:id="txtDocumentoCliente" layoutX="130.0" layoutY="41.0" promptText="documento" />
+                  <TextField fx:id="txtProducto" layoutX="130.0" layoutY="79.0" promptText="nombre" />
+                  <TextField fx:id="txtCantidad" layoutX="130.0" layoutY="120.0" promptText="00" />
+                  <TextField layoutX="130.0" layoutY="158.0" />
+                  <ComboBox fx:id="cmbVendedor" layoutX="523.0" layoutY="120.0" prefHeight="29.0" prefWidth="209.0" promptText="selecciona vendedor" />
+                  <ComboBox fx:id="cmbCliente" layoutX="523.0" layoutY="41.0" prefHeight="29.0" prefWidth="209.0" />
+                  <Label layoutX="451.0" layoutY="119.0" prefHeight="31.0" prefWidth="64.0" text="Vendedor" />
+                  <Button fx:id="btnAddCliente" layoutX="756.0" layoutY="41.0" mnemonicParsing="false" text="Agregar" />
+                  <Button fx:id="btnAddProducto" layoutX="756.0" layoutY="79.0" mnemonicParsing="false" text="Agregar" />
+                  <Button fx:id="btnNuevaVenta" layoutX="313.0" layoutY="523.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="107.0" text="Nueva venta">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button fx:id="btnEmitirFactura" layoutX="557.0" layoutY="524.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="108.0" text="Emitir factura">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button fx:id="btnEmitirBoleta" layoutX="433.0" layoutY="524.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="99.0" text="Emitir Boleta">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Label layoutX="54.0" prefHeight="28.0" prefWidth="82.0" text="VENTAS">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <DatePicker layoutX="525.0" layoutY="158.0" prefHeight="29.0" prefWidth="207.0" />
                </children>
             </Pane>
          </center>
