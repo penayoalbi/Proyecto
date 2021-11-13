@@ -1,5 +1,10 @@
 package ferreteria;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.ResultSet;
+
 public class usuario {
     private Integer usuarioID;
     private String tipoDocumento;
@@ -14,6 +19,9 @@ public class usuario {
     private String estado;
     private String domicilio;
   //  private  Integer claveGeneradaPor;
+
+    //llamadas
+    bd base = new bd();
 
     //construct
     public usuario(Integer usuarioID, String tipoDocumento, Integer documento, String nombre,
@@ -35,6 +43,17 @@ public class usuario {
        // this.claveGeneradaPor = claveGeneradaPor;
     }
 
+    //construct para comboBox
+    public usuario(Integer usuarioID, String nombre, String apellido) {
+        this.usuarioID = usuarioID;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+
+    //construct cin parametros
+    public usuario() {
+    }
+
     public void listar(int usuarioID,
                    String tipoDocumento, Integer documento,
                    String nombre, String apellido, String correo,
@@ -53,6 +72,30 @@ public class usuario {
         this.estado=estado;
         this.domicilio=domicilio;
 
+    }
+
+    //retorna una lista observable de usuario
+    public ObservableList<usuario> getUsuarios() {
+        ObservableList <usuario> obUsuario = FXCollections.observableArrayList();
+        try{
+            Integer usuarioID = 0;
+            String nombre = "";
+            String apellido = "";
+            ResultSet rs;
+            String sql = "select usuarioID, nombre, apellido from usuarios where cargo = 'vendedor' or cargo='Vendedor' ";
+            rs = base.Consultar(sql);
+            while(rs.next()){
+                usuarioID = rs.getInt("usuarioID");
+                nombre = rs.getString("nombre");
+                apellido = rs.getString("apellido");
+                usuario user = new usuario(usuarioID, nombre, apellido);
+                obUsuario.add(user);
+            }
+
+        }catch (Exception e){
+            System.out.println("Error en retornar lista observable");
+        }
+        return obUsuario;
     }
 
     public Integer getUsuarioID() {
@@ -151,6 +194,11 @@ public class usuario {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+    //para retornarlo en el comboBox
+    @Override
+    public String toString() {
+        return usuarioID+" "+ nombre+" "+ apellido;
+    }
 /*
     public Integer getGeneradoPor() {
         return claveGeneradaPor;
@@ -159,6 +207,5 @@ public class usuario {
     public void setGeneradoPor(Integer claveGeneradaPor) {
         this.claveGeneradaPor = claveGeneradaPor;
     }
-
  */
 }

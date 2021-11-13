@@ -42,6 +42,8 @@ public class PrincipalController {
         }
     }
 
+
+
     @FXML
     private void vistaUsuario(ActionEvent event){
         System.out.println("click en usuario");
@@ -176,4 +178,5 @@ public class PrincipalController {
             System.out.println("click en  Cancelar");
             System.exit(WITDH);
     }
+
 }

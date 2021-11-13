@@ -49,7 +49,7 @@ public class ventasController {
     ObservableList<ModelVentas> venta = FXCollections.observableArrayList();
     ObservableList<Producto> obproductos = FXCollections.observableArrayList();
     ObservableList<clientes> cbcliente = FXCollections.observableArrayList();
-    ObservableList<usuario> obusuario = FXCollections.observableArrayList();
+    ObservableList<usuario> obUsuario = FXCollections.observableArrayList();
 
     ArrayList lista =new ArrayList();
 
@@ -91,17 +91,26 @@ public class ventasController {
         cbcliente = Cli.getCliente();//viene del modelo
         this.cmbCliente.setItems(cbcliente);
 
+        usuario cmbUser = new usuario();
+        obUsuario = cmbUser.getUsuarios();//viene del modelo
+        this.cmbVendedor.setItems(obUsuario);
+
     }
     @FXML public void buscarProducto(){
-        Integer codProd;
-        String nombre;
-        Integer stock;
-        String descProd;
-        String filtrarProd;
-        ResultSet rs;
 
         try{
-            filtrarProd= "Select productoID, nombre, stock , descripcion from productos where ";
+            Integer codProd;
+            String nombre;
+            Integer stock;
+            String descProd;
+            String filtrarProd;
+            ResultSet rs;
+            filtrarProd= "Select productoID, nombre, stock , descripcion from productos where nombre = '"+ txtProducto.getText()+"'";
+            rs = base.Consultar(filtrarProd);
+            while(rs.next()){
+
+            }
+
 
         }catch (Exception e){
             System.out.println("error en buscar" + e.getMessage());

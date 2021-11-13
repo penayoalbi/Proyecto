@@ -10,7 +10,7 @@
             <Pane prefHeight="500.0" prefWidth="545.0" style="-fx-background-color: #AFEEEE;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnVentas" layoutX="24.0" layoutY="61.0" mnemonicParsing="false" onAction="#Ventas" prefHeight="79.0" prefWidth="170.0" text="Ventas" />
-                  <Button layoutX="292.0" layoutY="171.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="170.0" text="Button" />
+                  <Button layoutX="292.0" layoutY="171.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="170.0" text="Button" visible="false" />
                   <Button fx:id="btnFactura" layoutX="24.0" layoutY="171.0" mnemonicParsing="false" onAction="#Factura" prefHeight="79.0" prefWidth="170.0" text="Factura" />
                   <Button fx:id="btnCompras" layoutX="292.0" layoutY="61.0" mnemonicParsing="false" onAction="#Compras" prefHeight="79.0" prefWidth="170.0" text="Compras" />
                </children></Pane>
