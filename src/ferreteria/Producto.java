@@ -1,5 +1,10 @@
 package ferreteria;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.ResultSet;
+
 public class Producto {
 
     private Integer productoID;
@@ -20,7 +25,42 @@ public class Producto {
         this.stock = stock;
         this.categoria=categoria;
     }
+    public Producto(String descripcion, float precio) {
+        //this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precioVenta = precio;
+    }
+    public Producto() {
 
+    }
+
+    //conexion a base
+    bd base = new bd();
+
+    //observable de productos
+    public ObservableList<Producto> getProducto(){
+        ObservableList <Producto> obProducto = FXCollections.observableArrayList();
+        try{
+           // String nombre;
+            String descripcion;
+            float precio;
+            ResultSet rs;
+            String query = " select Descripcion, PrecioVenta from productos where Stock >= 1";
+            rs = base.Consultar(query);
+            while(rs.next()){
+              //  nombre = rs.getString("nombre");
+                descripcion = rs.getString("Descripcion");
+                precio = rs.getFloat("PrecioVenta");
+                Producto prod = new Producto(descripcion,precio);
+                obProducto.add(prod);
+            }
+
+        }catch (Exception e){
+            System.out.println("Error en retornar observable producto "+e.getMessage());
+        }
+        return obProducto;
+    }
+//setter and getter
     public Integer getProductoID() {
         return productoID;
     }
@@ -75,6 +115,11 @@ public class Producto {
 
     public String getCategoria(){
         return categoria;
+    }
+
+    @Override
+    public String toString(){
+        return descripcion+ " "+ precioVenta;
     }
 
 }

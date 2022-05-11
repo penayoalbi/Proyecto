@@ -37,7 +37,7 @@
       <ComboBox fx:id="cmbCargo" layoutX="483.0" layoutY="224.0" prefHeight="29.0" prefWidth="184.0" />
       <TextField fx:id="txtUsuario" layoutX="483.0" layoutY="108.0" prefHeight="29.0" prefWidth="184.0" />
       <Label layoutX="421.0" layoutY="148.0" prefHeight="27.0" prefWidth="53.0" text="Usuario" />
-      <Label layoutX="388.0" layoutY="-4.0" prefHeight="37.0" prefWidth="139.0" text="VISTA USUARIO" textAlignment="CENTER">
+      <Label layoutX="343.0" layoutY="-4.0" prefHeight="37.0" prefWidth="184.0" text="MÓDULO USUARIO" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="17.0" />
          </font>

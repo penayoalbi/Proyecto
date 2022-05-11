@@ -2,16 +2,18 @@ package ferreteria;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +28,7 @@ public class ventasController {
     @FXML private Button btnNuevaVenta;
     @FXML private Button btnGenerarVenta;
     @FXML private Button btnNuevoCliente;
+    @FXML private Button btnAddGrilla;
 
     @FXML private TextField txtDocumentoCliente;
     @FXML private TextField txtProducto;
@@ -59,6 +62,15 @@ public class ventasController {
         txtDocumentoCliente.setDisable(true);
     }
 
+    @FXML public void setBtnAddGrilla(ActionEvent event){
+        Object ventas []=null;
+        ventas [0] = txtProducto.getText();
+
+
+        colCantidad.setCellValueFactory(new PropertyValueFactory<>(txtCantidad.getText()));
+
+    }
+
     public void GenerarVenta(){
         System.out.println("click en generar venta");
         try{
@@ -72,7 +84,7 @@ public class ventasController {
     @FXML public void buscarCliente(){
         String cliente;
         ResultSet rs ;
-        String buscarCliente="Select clienteID, nombre, estado from clientes where docuemnto = '"+txtDocumentoCliente.getText()+"'";
+        String buscarCliente="Select clienteID, nombre, estado from clientes where documento = '"+txtDocumentoCliente.getText()+"'";
         try{
             rs=base.Consultar(buscarCliente);
             if(rs.next()){
@@ -95,6 +107,10 @@ public class ventasController {
         obUsuario = cmbUser.getUsuarios();//viene del modelo
         this.cmbVendedor.setItems(obUsuario);
 
+        Producto cmbProd = new Producto();
+        obproductos = cmbProd.getProducto();
+        this.cmbProducto.setItems(obproductos);
+
     }
     @FXML public void buscarProducto(){
 
@@ -110,7 +126,6 @@ public class ventasController {
             while(rs.next()){
 
             }
-
 
         }catch (Exception e){
             System.out.println("error en buscar" + e.getMessage());

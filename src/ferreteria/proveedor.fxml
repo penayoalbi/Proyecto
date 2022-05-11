@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.proveedorController">
    <children>
@@ -43,6 +44,11 @@
                   <Button fx:id="btnCancelar" layoutX="666.0" layoutY="83.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="190.0" text="Cancelar" />
                   <Button fx:id="btnModificar" layoutX="666.0" layoutY="130.0" mnemonicParsing="false" onAction="#Modificar" prefHeight="29.0" prefWidth="190.0" text="Modificar" />
                   <Button fx:id="btnBorrar" layoutX="666.0" layoutY="177.0" mnemonicParsing="false" onAction="#Borrar" prefHeight="29.0" prefWidth="190.0" text="Borrar" />
+                  <Label layoutX="322.0" layoutY="-2.0" prefHeight="32.0" prefWidth="224.0" text="MÓDULO PROVEEDOR" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="17.0" />
+                     </font>
+                  </Label>
                </children></Pane>
          </top>
       </BorderPane>

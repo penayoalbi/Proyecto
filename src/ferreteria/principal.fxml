@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="vistaPrincipal" prefHeight="502.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.PrincipalController">
    <children>
@@ -13,6 +14,13 @@
                   <Button layoutX="292.0" layoutY="171.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="170.0" text="Button" visible="false" />
                   <Button fx:id="btnFactura" layoutX="24.0" layoutY="171.0" mnemonicParsing="false" onAction="#Factura" prefHeight="79.0" prefWidth="170.0" text="Factura" />
                   <Button fx:id="btnCompras" layoutX="292.0" layoutY="61.0" mnemonicParsing="false" onAction="#Compras" prefHeight="79.0" prefWidth="170.0" text="Compras" />
+                  <Label layoutX="64.0" prefHeight="32.0" prefWidth="255.0" text="MÓDULO PRINCIPAL">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnFactura1" layoutX="292.0" layoutY="171.0" mnemonicParsing="false" onAction="#Factura" prefHeight="79.0" prefWidth="170.0" text="Reportes" />
+                  <Button layoutX="24.0" layoutY="282.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="170.0" text="Buscar Producto" />
                </children></Pane>
          </right></BorderPane>
       <AnchorPane fx:id="menuLateral" layoutY="-1.0" prefHeight="500.0" prefWidth="255.0" style="-fx-background-color: #87CEFA;">

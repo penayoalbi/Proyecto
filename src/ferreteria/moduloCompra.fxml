@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="850.0" style="-fx-background-color: #D0DAE6;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.compraController">
    <children>
@@ -38,12 +39,17 @@
                   <ComboBox layoutX="568.0" layoutY="55.0" prefWidth="150.0" />
                   <ChoiceBox layoutX="568.0" layoutY="92.0" prefWidth="150.0" />
                   <ChoiceBox layoutX="557.0" layoutY="211.0" prefWidth="150.0" />
-                  <MenuButton layoutX="358.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
+                  <MenuButton layoutX="357.0" layoutY="134.0" mnemonicParsing="false" text="MenuButton">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Action 1" />
                       <MenuItem mnemonicParsing="false" text="Action 2" />
                     </items>
                   </MenuButton>
+                  <Label layoutX="314.0" prefHeight="24.0" prefWidth="218.0" text="MÓDULO COMPRA">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </center>

@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #A3E4D7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.Recuperacion">
    <children>
-      <Pane fx:id="vistaNuevoUsuario" layoutX="70.0" layoutY="16.0" prefHeight="83.0" prefWidth="463.0" style="-fx-background-color: #F8F9F9;">
+      <Pane fx:id="vistaNuevoUsuario" layoutX="74.0" layoutY="35.0" prefHeight="83.0" prefWidth="463.0" style="-fx-background-color: #F8F9F9;">
          <children>
             <Button fx:id="btnEnviarCorreo" layoutX="359.0" layoutY="22.0" mnemonicParsing="false" onAction="#enviarCorreo" prefHeight="36.0" prefWidth="90.0" text="Enviar" textFill="#11e40a" />
             <TextField fx:id="txtCorreoRecupero" layoutX="69.0" layoutY="27.0" prefHeight="29.0" prefWidth="281.0" />
@@ -28,5 +28,10 @@
             <PasswordField fx:id="txtRepetirContraseña" layoutX="172.0" layoutY="99.0" prefHeight="29.0" prefWidth="245.0" />
          </children>
       </Pane>
+      <Label layoutX="181.0" prefHeight="29.0" prefWidth="239.0" text="RECUPERACIÓN DE CONTRASEÑA">
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

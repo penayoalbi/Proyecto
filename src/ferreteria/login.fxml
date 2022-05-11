@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <GridPane alignment="center" hgap="400.0" style="-fx-background-color: #625F64;" vgap="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ferreteria.Controller">
    <columnConstraints>
@@ -23,7 +24,7 @@
             <TextField fx:id="txtUsuario" layoutX="138.0" layoutY="117.0" prefHeight="37.0" prefWidth="211.0" promptText="usuario" />
             <Button fx:id="btnSalir" layoutX="247.0" layoutY="231.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="29.0" prefWidth="93.0" text="Cancelar" />
             <Hyperlink fx:id="recuperacion" layoutX="210.0" layoutY="260.0" onAction="#recuperacion" prefHeight="12.0" prefWidth="130.0" text="Recuperar contaseña" />
-            <ImageView fitHeight="80.0" fitWidth="123.0" layoutX="191.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="72.0" fitWidth="80.0" layoutX="191.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/login.png" />
                </image></ImageView>
@@ -35,6 +36,11 @@
                </children>
             </Pane>
             <Hyperlink fx:id="linkGenerarClave" layoutX="99.0" layoutY="260.0" onAction="#mostrarPane" text="Generar Clave" />
+            <Label layoutX="203.0" prefHeight="35.0" prefWidth="102.0" text="LOGIN">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
            <!-- <Hyperlink fx:id="vistaPrincipal" layoutX="312.0" layoutY="33.0" onAction="#vistaPrincipal" text="Ir a inicio" />-->
          </children>
          <GridPane.margin>

@@ -40,13 +40,13 @@
                   <Button fx:id="btnBuscarCliente" layoutX="313.0" layoutY="41.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" text="Buscar" />
                   <Button fx:id="btnNuevoCliente" layoutX="412.0" layoutY="41.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="83.0" text="Nuevo" />
                   <Button fx:id="btnBuscarProducto" layoutX="312.0" layoutY="79.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="80.0" text="Buscar" />
-                  <ComboBox fx:id="cmbProducto" layoutX="414.0" layoutY="79.0" prefHeight="29.0" prefWidth="318.0" />
+                  <ComboBox fx:id="cmbProducto" layoutX="414.0" layoutY="79.0" prefHeight="29.0" prefWidth="318.0" promptText="Seleccionar producto" />
                   <TextField fx:id="txtDocumentoCliente" layoutX="130.0" layoutY="41.0" promptText="documento" />
                   <TextField fx:id="txtProducto" layoutX="130.0" layoutY="79.0" promptText="nombre" />
                   <TextField fx:id="txtCantidad" layoutX="130.0" layoutY="120.0" promptText="00" />
                   <TextField layoutX="130.0" layoutY="158.0" />
                   <ComboBox fx:id="cmbVendedor" layoutX="417.0" layoutY="120.0" prefHeight="29.0" prefWidth="315.0" promptText="selecciona vendedor" />
-                  <ComboBox fx:id="cmbCliente" layoutX="523.0" layoutY="41.0" prefHeight="29.0" prefWidth="209.0" />
+                  <ComboBox fx:id="cmbCliente" layoutX="523.0" layoutY="41.0" prefHeight="29.0" prefWidth="209.0" promptText="Seleccionar cliente" />
                   <Label layoutX="320.0" layoutY="119.0" prefHeight="31.0" prefWidth="64.0" text="Vendedor" />
                   <Button fx:id="btnAddCliente" layoutX="756.0" layoutY="41.0" mnemonicParsing="false" text="Agregar" />
                   <Button fx:id="btnAddProducto" layoutX="756.0" layoutY="79.0" mnemonicParsing="false" text="Agregar" />
@@ -68,6 +68,7 @@
                      </font>
                   </Label>
                   <DatePicker layoutX="525.0" layoutY="158.0" prefHeight="29.0" prefWidth="207.0" />
+                  <Button fx:id="btnAddGrilla" layoutX="694.0" layoutY="188.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="126.0" text="Agregar a grilla" />
                </children>
             </Pane>
          </center>
