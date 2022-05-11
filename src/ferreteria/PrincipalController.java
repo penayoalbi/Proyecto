@@ -20,6 +20,7 @@ public class PrincipalController {
     @FXML private Button btnProveedor;
     @FXML private Button btnVentas;
     @FXML private Button btnCompras;
+    @FXML private Button btnBuscarProducto;
 
     @FXML
     public void loginClose()
@@ -165,6 +166,26 @@ public class PrincipalController {
 
         }
     }
+
+    //buscar btn
+    @FXML public void buscarProducto(){//lanza venta de buscar
+        System.out.println("click en buscar");
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("buscarProducto.fxml"));
+            Parent root = loader.load();
+            buscarProductoController buscar = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            stage.setOnCloseRequest( e-> buscar.cerrarVentana());
+
+        }catch (Exception e){
+            System.out.println("error en buscar ... "+e.getMessage());
+        }
+    }
+
     @FXML public void Factura(){
         System.out.println("click en Facrtura");
     }

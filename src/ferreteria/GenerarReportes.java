@@ -3,8 +3,10 @@ package ferreteria;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.PdfXrefTable;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,11 +16,11 @@ import java.util.List;
 
 
 public class GenerarReportes {
-
+    PdfXrefTable tabla = new PdfXrefTable(5);//crea una tabla
     public  void CrearFactura(){
        try{
             //file es el fichero donde se crea el archivo
-           File file = new File("C:\\Users\\Home\\Desktop\\REPORTES\\repo1.pdf");
+           File file = new File("C:\\Users\\Home\\Desktop\\REPORTES\\repo2.pdf");
 
            //PdfWriteres un objeto que puede escribir un archivo PDF
            PdfWriter pdfWriter = new PdfWriter(file);
@@ -30,6 +32,15 @@ public class GenerarReportes {
            Document document = new Document(pdfDocument);
 
            document.add(new Paragraph("parrafo 1: \n\n "));
+           document.add( new Table(5));
+
+
+
+
+
+
+
+
 
            List lista = new ArrayList();
 

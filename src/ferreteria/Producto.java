@@ -37,6 +37,13 @@ public class Producto {
     //conexion a base
     bd base = new bd();
 
+    public Producto(int productoID, String descripcion, float precioVenta, int stock) {
+        this.productoID=productoID;
+        this.descripcion=descripcion;
+        this.precioVenta=precioVenta;
+        this.stock=stock;
+    }
+
     //observable de productos
     public ObservableList<Producto> getProducto(){
         ObservableList <Producto> obProducto = FXCollections.observableArrayList();
