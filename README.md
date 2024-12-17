@@ -1,12 +1,12 @@
-# 👋 ¡Hola! Soy [Albi]
+# 👋 ¡Hola! Soy Albi
 
 ## 🚀 Sobre mí  
 Soy un desarrollador junior apasionado por la creación de aplicaciones y el aprendizaje continuo.  
 
 ## 🛠️ Habilidades  
 - **Lenguajes**: JavaScript, php, java
-- **Tecnologías**: Angular, HTML5, CSS3  
-- **Herramientas**: Git, VSCode, SQL.
+- **Tecnologías**: Angular, bootstrap, HTML5, CSS3 
+- **Herramientas**: Git, VSCode, SQL, ETL, 
 
 ## 💼 Proyectos destacados  
 1. **[proyectoFerreteria](https://github.com/penayoalbi/ProyectoFerreteria)**
